@@ -23,6 +23,14 @@ app.use(cors());
 app.options("*", cors());
 app.use(express.static("public"));
 
+//vercel
+app.use(cors({
+  origin: [""],
+  methods: ["POST", "GET"],
+  credentials: true
+}))
+
+
 // Define API URL constant
 const api = process.env.API_URL;
 
