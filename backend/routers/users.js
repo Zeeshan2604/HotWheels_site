@@ -1,12 +1,14 @@
 import { User } from "../models/user.js";
 import { Router } from "express";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import pkg from 'jsonwebtoken';
 import { Types } from "mongoose";
+import express from 'express';
+import authJwt from '../helpers/jwt.js';
 
 const { hashSync, compareSync } = bcrypt;
 const router = Router();
-const { sign } = jwt;
+const { sign } = pkg;
 
 //get all users
 router.get(`/`, async (req, res) => {
@@ -156,27 +158,68 @@ router.delete("/:id", (req, res) => {
 });
 
 //update user details
-router.put("/:id", async (req, res) => {
-  const user = await User.findByIdAndUpdate(
-    req.params.id,
-    {
-      name: req.body.name,
-      email: req.body.email,
-      color: req.body.color,
-      passwordHash: hashSync(req.body.password, 10),
-      phone: req.body.phone,
-      isAdmin: req.body.isAdmin,
-      street: req.body.street,
-      apartment: req.body.apartment,
-      zip: req.body.zip,
-      city: req.body.city,
-      country: req.body.country,
-    },
-    { new: true }
-  );
-  if (!user) return res.status(404).send("The user cannot be updated!");
+router.put('/:id', authJwt(), async (req, res) => {
+    try {
+        if (!req.auth) {
+            return res.status(401).json({ 
+                success: false, 
+                message: 'Authentication required' 
+            });
+        }
 
-  res.send(user);
+        // Ensure user can only update their own profile
+        if (req.auth.userId !== req.params.id) {
+            return res.status(403).json({ 
+                success: false, 
+                message: 'Not authorized to update this profile' 
+            });
+        }
+
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                street: req.body.street,
+                apartment: req.body.apartment,
+                city: req.body.city,
+                zip: req.body.zip,
+                country: req.body.country
+            },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ 
+                success: false, 
+                message: 'User not found' 
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Profile updated successfully',
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                street: user.street,
+                apartment: user.apartment,
+                city: user.city,
+                zip: user.zip,
+                country: user.country
+            }
+        });
+    } catch (error) {
+        console.error('Update error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error updating profile',
+            error: error.message
+        });
+    }
 });
 
 export default router;

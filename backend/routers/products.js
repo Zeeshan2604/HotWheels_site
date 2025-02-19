@@ -8,16 +8,33 @@ import multer, { diskStorage } from "multer";
 //get all the products list
 router.get(`/`, async (req, res) => {
   let filter = {};
+  let sort = {};
+  
+  // Handle category filter
   if (req.query.categories) {
     filter = { category: req.query.categories.split(",") };
   }
-  const productList = await Product.find(filter).populate("category");
-  // const productList = await Product.find().select('name image - _id);
-
-  if (!productList) {
-    res.status(500).json({ success: false });
+  
+  // Handle sorting
+  if (req.query.sort) {
+    const sortField = req.query.sort.startsWith('-') ? req.query.sort.substring(1) : req.query.sort;
+    const sortOrder = req.query.sort.startsWith('-') ? -1 : 1;
+    sort = { [sortField]: sortOrder };
   }
-  res.send(productList);
+
+  // Handle limit
+  const limit = parseInt(req.query.limit) || 0;
+  
+  try {
+    const productList = await Product.find(filter)
+      .populate("category")
+      .sort(sort)
+      .limit(limit);
+      
+    res.send(productList);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 //get a single product with try-catch block
