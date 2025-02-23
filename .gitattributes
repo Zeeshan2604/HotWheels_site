@@ -1,0 +1,15 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Explicitly declare binary files to prevent conversion
+*.gltf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.bin binary
+
+# Force LF for specific file types
+*.js eol=lf
+*.json eol=lf
+*.css eol=lf
+*.html eol=lf
