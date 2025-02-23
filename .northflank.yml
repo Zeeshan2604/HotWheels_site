@@ -1,9 +1,10 @@
 build:
-  node_version: 18
+  node_version: 20
   cache:
     paths:
       - frontend/node_modules
       - backend/node_modules
   env:
     NODE_ENV: production
-    REACT_APP_API_URL: $VITE_API_URL 
+    REACT_APP_API_URL: $VITE_API_URL
+  npm_args: --omit=dev
