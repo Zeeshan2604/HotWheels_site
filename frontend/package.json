@@ -16,11 +16,13 @@
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "three": "^0.172.0",
-    "three-mesh-bvh": "^0.8.3"
+    "three-mesh-bvh": "^0.8.3",
+    "dotenv": "^16.0.3"
   },
   "scripts": {
     "start": "react-scripts start --port 3001",
     "build": "react-scripts build",
+    "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,6 +52,10 @@
   },
   "homepage": "https://your-domain.vercel.app",
   "build": {
-    "baseUrl": "/"
+    "baseUrl": "/",
+    "includeFiles": [
+      "public/**/*",
+      "src/assets/**/*.gltf"
+    ]
   }
 }
