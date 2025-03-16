@@ -10,6 +10,11 @@ import { Model } from './Model';  // Import the Model component we just created
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
 
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+
 const HomePage = () => {
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -24,9 +29,9 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const featuredRes = await axios.get('http://localhost:3000/api/v1/products?isFeatured=true');
-        const collectionsRes = await axios.get('http://localhost:3000/api/v1/collections');
-        const latestRes = await axios.get('http://localhost:3000/api/v1/products?sort=-dateCreated&limit=3');
+        const featuredRes = await axios.get('/api/v1/products?isFeatured=true');
+        const collectionsRes = await axios.get('/api/v1/collections');
+        const latestRes = await axios.get('/api/v1/products?sort=-dateCreated&limit=3');
         
         setFeaturedProductsState(featuredRes.data);
         setCollectionsState(collectionsRes.data);
