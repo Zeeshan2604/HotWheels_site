@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';  // We'll create this component next
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
@@ -15,7 +19,7 @@ const CategoriesList = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(
+      const response = await axi.get(
         "http://localhost:3000/api/v1/collections"
       );
       setCategories(response.data);
