@@ -586,7 +586,7 @@ const HomePage = () => {
                       <img 
                         src={product.image} 
                         alt={product.name}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform"
+                        className="w-full rounded-[10px] h-full object-contain group-hover:scale-110 transition-transform"
                       />
                     ) : (
                       <i className="fa-solid fa-car text-6xl text-red-500 group-hover:scale-110 transition-transform"></i>
