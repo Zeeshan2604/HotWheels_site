@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.product-card-content {
+  @apply flex flex-col h-full;
+}
+
+.product-card-footer {
+  @apply mt-auto;
+}
+
+.grid-container {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+.product-card {
+  @apply flex flex-col h-full;
+} 
