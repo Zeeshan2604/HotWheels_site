@@ -37,7 +37,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axi.post("http://localhost:3000/api/v1/auth/login", {
+      const response = await axi.post("/api/v1/auth/login", {
         email,
         password
       });
@@ -59,7 +59,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axi.post("http://localhost:3000/api/v1/auth/google", {
+      const response = await axi.post("/api/v1/auth/google", {
         credential: credentialResponse.credential
       });
 
