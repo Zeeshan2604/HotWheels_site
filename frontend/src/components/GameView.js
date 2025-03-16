@@ -22,7 +22,7 @@ function Model({ modelPath }) {
 }
 
 // Preload the model
-useGLTF.preload("http://localhost:3000/public/uploads/3dmodels/ferrari_f8_tributo.glb");
+useGLTF.preload("/public/uploads/3dmodels/ferrari_f8_tributo.glb");
 
 const GameView = () => {
   const { id } = useParams();
@@ -34,7 +34,7 @@ const GameView = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axi.get(`http://localhost:3000/api/v1/products/${id}`);
+        const response = await axi.get(`/api/v1/products/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (err) {
@@ -45,7 +45,7 @@ const GameView = () => {
     
     if(id === 'random') {
       // Fetch random product with 3D model
-      axi.get('http://localhost:3000/api/v1/products?has3DModel=true')
+      axi.get('/api/v1/products?has3DModel=true')
         .then(res => {
           const validProducts = res.data.filter(p => p.model3D);
           if(validProducts.length > 0) {
@@ -117,7 +117,7 @@ const GameView = () => {
               {product?.model3D && (
                 <>
                   <Model 
-                    modelPath={`http://localhost:3000/public/uploads/3dmodels/${product.model3D}`}
+                    modelPath={`/public/uploads/3dmodels/${product.model3D}`}
                     scale={0.8}
                     position={[0, -12, 222]}
                   />
