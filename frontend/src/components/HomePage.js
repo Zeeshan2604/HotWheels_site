@@ -67,7 +67,7 @@ const HomePage = () => {
           className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
         >
           <source
-            src="http://localhost:3000/uploads/hot-wheels.mp4"
+            src="/uploads/hot-wheels.mp4"
             type="video/mp4"
           />
         </video>
