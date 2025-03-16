@@ -35,7 +35,7 @@ if (!secret) {
 
 // CORS Configuration
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://hotwheelsx-frontend.onrender.com',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
