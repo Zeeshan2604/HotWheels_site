@@ -63,7 +63,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axi.post("http://localhost:3000/api/v1/auth/register", {
+      const response = await axi.post("/api/v1/auth/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password
