@@ -20,7 +20,7 @@ const CategoriesList = () => {
   const fetchCategories = async () => {
     try {
       const response = await axi.get(
-        "http://localhost:3000/api/v1/collections"
+        "/api/v1/collections"
       );
       setCategories(response.data);
     } catch (err) {
