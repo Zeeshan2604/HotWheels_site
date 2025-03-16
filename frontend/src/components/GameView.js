@@ -76,6 +76,16 @@ const GameView = () => {
       </div>
     );
   }
+  
+  const handleAddToCart = async (product) => {
+      const result = await addToCart(product);
+      if (!result.success) {
+        navigate('/login'); // Redirect to login if not logged in
+      } else {
+        setToastMessage(result.message); // Show success message
+        setTimeout(() => setToastMessage(""), 3000);
+      }
+    };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-zinc-900 flex text-white">
@@ -218,7 +228,7 @@ const GameView = () => {
                   <span className="text-sm text-green-500">{product.stock} in stock</span>
                 </div>
               </div>
-              <button onClick={(e) => {e.stopPropagation(); onAddToCart(product);
+              <button onClick={(e) => {e.stopPropagation();  handleAddToCart(product);
                         }} className="w-full mt-6 py-4 bg-red-500 hover:bg-red-600 rounded-xl transition-all 
                 flex items-center justify-center gap-3 group-hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
                 <i className="fas fa-shopping-cart"></i>
