@@ -228,10 +228,10 @@ const GameView = () => {
             {/* Specs Grid */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: 'ruler', label: 'Scale', value: product.scale },
-                { icon: 'cube', label: 'Material', value: product.material },
-                { icon: 'expand', label: 'Dimensions', value: product.dimensions },
-                { icon: 'weight-hanging', label: 'Weight', value: product.weight },
+                { icon: 'ruler', label: 'Scale', value: "1:64" },
+                { icon: 'cube', label: 'Material', value: "Die-cast metal" },
+                { icon: 'expand', label: 'Dimensions', value: "2.5 to 3 inches" },
+                { icon: 'weight-hanging', label: 'Weight', value: "1.28 ounces" },
               ].map((spec, index) => (
                 <div key={index} className="p-6 bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/30 transition-all text-white">
                   <div className="flex items-center gap-4 mb-3">
