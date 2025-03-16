@@ -220,6 +220,10 @@ const GameView = () => {
               </div>
               <button className="w-full mt-6 py-4 bg-red-500 hover:bg-red-600 rounded-xl transition-all 
                 flex items-center justify-center gap-3 group-hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
+                    onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToCart(product);
+                        }}
                 <i className="fas fa-shopping-cart"></i>
                 Add to Collection
               </button>
