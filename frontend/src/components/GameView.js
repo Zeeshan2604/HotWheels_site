@@ -213,7 +213,7 @@ const GameView = () => {
 
             {/* Pricing Card */}
             <div className="relative bg-zinc-900 p-8 rounded-2xl border border-zinc-800 hover:border-red-500/50 transition-all group">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="flex justify-between items-start">
                 <div>
                   <div className="flex items-baseline gap-4 mb-2">
