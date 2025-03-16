@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
 import { useCart } from "../context/CartContext";
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: URL,
+});
 
 const ProductList = () => {
   const [searchParams] = useSearchParams();
@@ -24,7 +28,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/products");
+        const response = await axi.get("http://localhost:3000/api/v1/products");
         setProducts(response.data);
       } catch (err) {
         setError(err.message);
@@ -46,7 +50,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/collections");
+        const response = await axi.get("http://localhost:3000/api/v1/collections");
         setCategories([{ id: "all", name: "All Categories" }, ...response.data]);
       } catch (err) {
         console.error("Error fetching categories:", err);
