@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const Checkout = () => {
   const { cartItems, clearCart } = useCart();
@@ -42,7 +46,7 @@ const Checkout = () => {
 
       if (response.data && response.data._id) {
         // Clear cart items from the database
-        await axios.delete('http://localhost:3000/api/v1/cart', {
+        await axi.delete('http://localhost:3000/api/v1/cart', {
           headers: { 
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
