@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const SingleCollection = () => {
   const { id } = useParams();
@@ -19,8 +23,8 @@ const SingleCollection = () => {
     const fetchCollectionAndProducts = async () => {
       try {
         const [collectionRes, productsRes] = await Promise.all([
-          axios.get(`http://localhost:3000/api/v1/collections/${id}`),
-          axios.get(`http://localhost:3000/api/v1/products`, {
+          axi.get(`http://localhost:3000/api/v1/collections/${id}`),
+          axi.get(`http://localhost:3000/api/v1/products`, {
             params: {
               category: id
             }
