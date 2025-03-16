@@ -10,7 +10,7 @@ import { Model } from './Model';  // Import the Model component we just created
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
 
-const axios = axios.create({
+const axi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
@@ -29,9 +29,9 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const featuredRes = await axios.get('/api/v1/products?isFeatured=true');
-        const collectionsRes = await axios.get('/api/v1/collections');
-        const latestRes = await axios.get('/api/v1/products?sort=-dateCreated&limit=3');
+        const featuredRes = await axi.get('/api/v1/products?isFeatured=true');
+        const collectionsRes = await axi.get('/api/v1/collections');
+        const latestRes = await axi.get('/api/v1/products?sort=-dateCreated&limit=3');
         
         setFeaturedProductsState(featuredRes.data);
         setCollectionsState(collectionsRes.data);
