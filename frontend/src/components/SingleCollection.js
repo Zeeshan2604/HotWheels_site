@@ -23,8 +23,8 @@ const SingleCollection = () => {
     const fetchCollectionAndProducts = async () => {
       try {
         const [collectionRes, productsRes] = await Promise.all([
-          axi.get(`http://localhost:3000/api/v1/collections/${id}`),
-          axi.get(`http://localhost:3000/api/v1/products`, {
+          axi.get(`/api/v1/collections/${id}`),
+          axi.get(`/api/v1/products`, {
             params: {
               category: id
             }
