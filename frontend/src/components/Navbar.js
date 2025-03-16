@@ -4,6 +4,10 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
 
+const axi = axios.create({
+  baseURL: API_URL,
+});
+
 const Navbar = () => {
   const { user, logout, loading } = useAuth();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -31,7 +35,7 @@ const Navbar = () => {
     
     try {
       setIsSearching(true);
-      const response = await axios.get(`http://localhost:3000/api/v1/search?q=${encodeURIComponent(query)}`);
+      const response = await axi.get(`http://localhost:3000/api/v1/search?q=${encodeURIComponent(query)}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error('Search error:', error);
