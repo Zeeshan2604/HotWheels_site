@@ -22,7 +22,7 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axi.get("http://localhost:3000/api/v1/wishlist", {
+        const response = await axi.get("/api/v1/wishlist", {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setWishlistItems(response.data);
@@ -41,7 +41,7 @@ const Wishlist = () => {
   const handleRemoveFromWishlist = async (itemId) => {
     try {
       const token = localStorage.getItem('token');
-      await axi.delete(`http://localhost:3000/api/v1/wishlist/${itemId}`, {
+      await axi.delete(`/api/v1/wishlist/${itemId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
