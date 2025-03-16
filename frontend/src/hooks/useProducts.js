@@ -13,10 +13,10 @@ export const useProducts = () => {
     const fetchData = async () => {
       try {
         const [featuredRes, collectionsRes, latestRes, recentRes] = await Promise.all([
-          axios.get('http://localhost:3000/api/v1/products/get/featured/4'),
-          axios.get('http://localhost:3000/api/v1/collections'),
-          axios.get('http://localhost:3000/api/v1/products?limit=8'),
-          axios.get('http://localhost:3000/api/v1/products?sort=-dateCreated&limit=8')
+          axios.get('/api/v1/products/get/featured/4'),
+          axios.get('/api/v1/collections'),
+          axios.get('/api/v1/products?limit=8'),
+          axios.get('/api/v1/products?sort=-dateCreated&limit=8')
         ]);
 
         setFeaturedProducts(featuredRes.data);
