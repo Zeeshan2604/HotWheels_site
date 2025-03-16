@@ -91,9 +91,9 @@ const GameView = () => {
     };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-zinc-900 flex text-white">
+    <div className="fixed top-0 left-0 w-full h-full bg-zinc-900 flex text-white flex-col md:flex-row">
       {/* 3D Viewer Section */}
-      <div className="w-1/2 h-full relative border-r-2 border-zinc-800 p-6">
+      <div className="w-full h-1/2 md:w-1/2 md:h-full relative border-b-2 md:border-r-2 md:border-b-0 border-zinc-800 p-6">
         <Canvas camera={{ position: [0, 2, 5], fov: 50, near: 0.1, far: 1000 }}>
           <Suspense fallback={
             <Html center>
