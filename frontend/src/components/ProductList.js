@@ -28,7 +28,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axi.get("http://localhost:3000/api/v1/products");
+        const response = await axi.get("/api/v1/products");
         setProducts(response.data);
       } catch (err) {
         setError(err.message);
@@ -50,7 +50,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axi.get("http://localhost:3000/api/v1/collections");
+        const response = await axi.get("/api/v1/collections");
         setCategories([{ id: "all", name: "All Categories" }, ...response.data]);
       } catch (err) {
         console.error("Error fetching categories:", err);
