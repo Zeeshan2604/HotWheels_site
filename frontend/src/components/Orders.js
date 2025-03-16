@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const Orders = () => {
   const { user } = useAuth();
@@ -16,7 +20,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/api/v1/orders/user', {
+        const response = await axi.get('http://localhost:3000/api/v1/orders/user', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrders(response.data);
@@ -44,7 +48,7 @@ const Orders = () => {
   const cancelOrder = async (orderId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:3000/api/v1/orders/${orderId}`, 
+      await axi.put(`http://localhost:3000/api/v1/orders/${orderId}`, 
         { status: 'cancelled' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
