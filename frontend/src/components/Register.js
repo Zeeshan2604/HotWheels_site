@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import axios from "axios";
 import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -59,7 +63,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/register", {
+      const response = await axi.post("http://localhost:3000/api/v1/auth/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password
