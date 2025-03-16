@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from './AuthContext'; // Import AuthContext
 
 
-const axios = axios.create({
+const axi = axios.create({
   baseURL: process.env.URL,
 });
 
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
         try {
           const token = localStorage.getItem('token');
           setLoading(true);
-          const response = await axios.get("/api/v1/cart", {
+          const response = await axi.get("/api/v1/cart", {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           
@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
       if (user) {
         try {
           const token = localStorage.getItem('token');
-          const response = await axios.get("/api/v1/wishlist", {
+          const response = await axi.get("/api/v1/wishlist", {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           setWishlistItems(response.data);
@@ -69,7 +69,7 @@ export const CartProvider = ({ children }) => {
       }
 
       // Call your backend API to add/update the cart
-      const response = await axios.post("/api/v1/cart", {
+      const response = await axi.post("/api/v1/cart", {
         productId: product._id,
         quantity: 1
       }, {
@@ -96,7 +96,7 @@ export const CartProvider = ({ children }) => {
         throw new Error('Please login to remove items from cart');
       }
 
-      await axios.delete(`/api/v1/cart/${productId}`, {
+      await axi.delete(`/api/v1/cart/${productId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -115,7 +115,7 @@ export const CartProvider = ({ children }) => {
         throw new Error('Please login to update cart');
       }
 
-      const response = await axios.put(
+      const response = await axi.put(
         `/api/v1/cart/${productId}`,
         { quantity },
         {
@@ -137,7 +137,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete("http://localhost:3000/api/v1/cart", {
+      await axi.delete("http://localhost:3000/api/v1/cart", {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setCartItems([]); // Clear cart items from the frontend state
@@ -163,7 +163,7 @@ export const CartProvider = ({ children }) => {
         return { success: false };
       }
 
-      const response = await axios.post("/api/v1/wishlist", 
+      const response = await axi.post("/api/v1/wishlist", 
         { productId },
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
