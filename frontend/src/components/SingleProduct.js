@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -21,7 +25,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/products/${id}`);
+        const response = await axi.get(`http://localhost:3000/api/v1/products/${id}`);
         setProduct(response.data);
       } catch (err) {
         setError(err.message);
