@@ -20,7 +20,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axi.get('http://localhost:3000/api/v1/orders/user', {
+        const response = await axi.get('/api/v1/orders/user', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrders(response.data);
@@ -48,7 +48,7 @@ const Orders = () => {
   const cancelOrder = async (orderId) => {
     try {
       const token = localStorage.getItem('token');
-      await axi.put(`http://localhost:3000/api/v1/orders/${orderId}`, 
+      await axi.put(`/api/v1/orders/${orderId}`, 
         { status: 'cancelled' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
