@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from './AuthContext'; // Import AuthContext
 
 
-const api = axios.create({
+const axios = axios.create({
   baseURL: process.env.URL,
 });
 
