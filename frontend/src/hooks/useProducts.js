@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const api = axios.create({
+const axios = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
