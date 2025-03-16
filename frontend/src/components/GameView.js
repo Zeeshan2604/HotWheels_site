@@ -213,24 +213,28 @@ const GameView = () => {
 
             {/* Pricing Card */}
             <div className="relative bg-zinc-900 p-8 rounded-2xl border border-zinc-800 hover:border-red-500/50 transition-all group">
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="flex justify-between items-start">
-                <div>
-                  <div className="flex items-baseline gap-4 mb-2">
-                    <span className="text-4xl font-bold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
-                      ${product.price}
-                    </span>
-                    {product.oldPrice && (
-                      <span className="text-zinc-400 line-through">${product.oldPrice}</span>
-                    )}
+              <div className="absolute inset-0 pointer-events-none z-0 bg-gradient-to-r from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              
+              <div className="relative z-10">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <div className="flex items-baseline gap-4 mb-2">
+                      <span className="text-4xl font-bold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+                        ${product.price}
+                      </span>
+                      {product.oldPrice && (
+                        <span className="text-zinc-400 line-through">${product.oldPrice}</span>
+                      )}
+                    </div>
+                    <p className="text-zinc-400 text-sm">Including VAT & Shipping</p>
                   </div>
-                  <p className="text-zinc-400 text-sm">Including VAT & Shipping</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm text-green-500">{product.stock} in stock</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-green-500">{product.stock} in stock</span>
+                  </div>
                 </div>
               </div>
+                      
               <button onClick={(e) => {e.stopPropagation();  handleAddToCart(product);}} className="w-full z-30 mt-6 py-4 bg-red-500 hover:bg-red-600 rounded-xl transition-all 
                 flex items-center justify-center gap-3 group-hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
                 <i className="fas fa-shopping-cart"></i>
