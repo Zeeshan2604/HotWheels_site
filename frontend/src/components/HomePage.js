@@ -65,7 +65,7 @@ const HomePage = () => {
           playsInline
           muted={isMuted}
           className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
-          src={`${process.env.REACT_APP_URL}/uploads/hot-wheels.mp4`} controls
+          src={`${process.env.REACT_APP_URL}/uploads/hot-wheels.mp4`}
         >
         </video>
 
