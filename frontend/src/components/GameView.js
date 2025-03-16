@@ -13,7 +13,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const axi = axios.create({
-  baseURL: URL,
+  baseURL: process.env.REACT_APP_URL,
 });
 
 function Model({ modelPath }) {
