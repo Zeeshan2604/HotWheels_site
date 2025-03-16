@@ -22,7 +22,7 @@ function Model({ modelPath }) {
 }
 
 // Preload the model
-useGLTF.preload(`${process.env.REACT_APP_BACKEND_URL}/public/uploads/3dmodels/ferrari_f8_tributo.glb`);
+useGLTF.preload(`${process.env.REACT_APP_URL}/public/uploads/3dmodels/ferrari_f8_tributo.glb`);
 
 const GameView = () => {
   const { id } = useParams();
