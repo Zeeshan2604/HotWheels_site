@@ -10,7 +10,7 @@ import { Model } from './Model';  // Import the Model component we just created
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
 
-const api = axios.create({
+const axios = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
