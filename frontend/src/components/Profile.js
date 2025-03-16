@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
+const axi = axios.create({
+  baseURL: API_URL,
+});
+
 const Profile = () => {
   const { user, login } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +26,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:3000/api/v1/users/${user.id}`, {
+        const response = await axi.get(`http://localhost:3000/api/v1/users/${user.id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
