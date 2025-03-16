@@ -117,7 +117,7 @@ const GameView = () => {
               {product?.model3D && (
                 <>
                   <Model 
-                    modelPath={`/public/uploads/3dmodels/${product.model3D}`}
+                    modelPath={``${process.env.REACT_APP_URL}/public/uploads/3dmodels/${product.model3D}`}
                     scale={0.8}
                     position={[0, -12, 222]}
                   />
