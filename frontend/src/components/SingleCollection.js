@@ -6,7 +6,7 @@ import Footer from './Footer';
 import axios from 'axios';
 
 const axi = axios.create({
-  baseURL: URL,
+  baseURL: process.env.REACT_APP_URL,
 });
 
 const SingleCollection = () => {
