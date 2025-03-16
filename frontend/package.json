@@ -19,7 +19,7 @@
     "three-mesh-bvh": "^0.8.3"
   },
   "scripts": {
-    "start": "react-scripts start --port 3001",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
