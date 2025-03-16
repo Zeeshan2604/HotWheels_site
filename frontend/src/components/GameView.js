@@ -12,6 +12,10 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const axi = axios.create({
+  baseURL: API_URL,
+});
+
 function Model({ modelPath }) {
   const { scene } = useGLTF(modelPath);
   return <primitive object={scene} />;
@@ -30,7 +34,7 @@ const GameView = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/products/${id}`);
+        const response = await axi.get(`http://localhost:3000/api/v1/products/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (err) {
@@ -41,7 +45,7 @@ const GameView = () => {
     
     if(id === 'random') {
       // Fetch random product with 3D model
-      axios.get('http://localhost:3000/api/v1/products?has3DModel=true')
+      axi.get('http://localhost:3000/api/v1/products?has3DModel=true')
         .then(res => {
           const validProducts = res.data.filter(p => p.model3D);
           if(validProducts.length > 0) {
