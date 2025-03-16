@@ -6,7 +6,7 @@ import Footer from './Footer';
 import axios from 'axios';
 
 const axi = axios.create({
-  baseURL: API_URL,
+  baseURL: URL,
 });
 
 const SingleProduct = () => {
