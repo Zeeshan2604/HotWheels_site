@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const Wishlist = () => {
   const { user } = useAuth();
@@ -18,7 +22,7 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get("http://localhost:3000/api/v1/wishlist", {
+        const response = await axi.get("http://localhost:3000/api/v1/wishlist", {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setWishlistItems(response.data);
@@ -37,7 +41,7 @@ const Wishlist = () => {
   const handleRemoveFromWishlist = async (itemId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:3000/api/v1/wishlist/${itemId}`, {
+      await axi.delete(`http://localhost:3000/api/v1/wishlist/${itemId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
