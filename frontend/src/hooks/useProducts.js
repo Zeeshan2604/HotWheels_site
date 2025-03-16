@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const axios = axios.create({
+const axi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
@@ -19,10 +19,10 @@ export const useProducts = () => {
     const fetchData = async () => {
       try {
         const [featuredRes, collectionsRes, latestRes, recentRes] = await Promise.all([
-          axios.get('/api/v1/products/get/featured/4'),
-          axios.get('/api/v1/collections'),
-          axios.get('/api/v1/products?limit=8'),
-          axios.get('/api/v1/products?sort=-dateCreated&limit=8')
+          axi.get('/api/v1/products/get/featured/4'),
+          axi.get('/api/v1/collections'),
+          axi.get('/api/v1/products?limit=8'),
+          axi.get('/api/v1/products?sort=-dateCreated&limit=8')
         ]);
 
         setFeaturedProducts(featuredRes.data);
