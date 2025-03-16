@@ -70,7 +70,7 @@ const Profile = () => {
         throw new Error('No authentication token found');
       }
 
-      const response = await axios.put(
+      const response = await axi.put(
         `/api/v1/users/${user.id}`,
         formData,
         {
