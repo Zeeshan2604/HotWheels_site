@@ -65,11 +65,8 @@ const HomePage = () => {
           playsInline
           muted={isMuted}
           className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
+          src={`${process.env.REACT_APP_URL}/uploads/hot-wheels.mp4`}
         >
-          <source
-            src="${process.env.REACT_APP_URL}/uploads/hot-wheels.mp4"
-            type="video/mp4"
-          />
         </video>
 
         {/* Hero Section Content */}
