@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext'; // Import AuthContext
 
 
 const axi = axios.create({
-  baseURL: process.env.URL,
+  baseURL: process.env.REACT_APP_URL,
 });
 
 
