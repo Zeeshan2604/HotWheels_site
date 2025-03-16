@@ -25,7 +25,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axi.get(`http://localhost:3000/api/v1/products/${id}`);
+        const response = await axi.get(`/api/v1/products/${id}`);
         setProduct(response.data);
       } catch (err) {
         setError(err.message);
