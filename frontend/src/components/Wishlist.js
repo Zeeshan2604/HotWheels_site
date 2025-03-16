@@ -6,7 +6,7 @@ import { useCart } from '../context/CartContext';
 import axios from 'axios';
 
 const axi = axios.create({
-  baseURL: API_URL,
+  baseURL: URL,
 });
 
 const Wishlist = () => {
