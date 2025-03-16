@@ -26,7 +26,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axi.get(`http://localhost:3000/api/v1/users/${user.id}`, {
+        const response = await axi.get(`/api/v1/users/${user.id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -71,7 +71,7 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:3000/api/v1/users/${user.id}`,
+        `/api/v1/users/${user.id}`,
         formData,
         {
           headers: { 
