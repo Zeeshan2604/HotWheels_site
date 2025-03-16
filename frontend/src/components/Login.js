@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import axios from "axios";
 import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: API_URL,
+});
 
 const Login = () => {
   const { user, login } = useAuth();
@@ -33,7 +37,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
+      const response = await axi.post("http://localhost:3000/api/v1/auth/login", {
         email,
         password
       });
@@ -55,7 +59,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/google", {
+      const response = await axi.post("http://localhost:3000/api/v1/auth/google", {
         credential: credentialResponse.credential
       });
 
