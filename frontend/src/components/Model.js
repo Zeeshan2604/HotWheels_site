@@ -1,4 +1,9 @@
 import { useGLTF } from "@react-three/drei";
+import axios from 'axios';
+
+const axi = axios.create({
+  baseURL: process.env.REACT_APP_URL,
+});
 
 export function Model() {
   const modelPath = `${process.env.REACT_APP_URL}/public/uploads/3dmodels/ferrari_f8_tributo.glb`;
