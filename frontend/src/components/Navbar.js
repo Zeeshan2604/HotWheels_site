@@ -35,7 +35,7 @@ const Navbar = () => {
     
     try {
       setIsSearching(true);
-      const response = await axi.get(`http://localhost:3000/api/v1/search?q=${encodeURIComponent(query)}`);
+      const response = await axi.get(`/api/v1/search?q=${encodeURIComponent(query)}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error('Search error:', error);
@@ -108,7 +108,7 @@ const Navbar = () => {
 
   const handleRandomModel = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/products/get/random/1');
+      const response = await axios.get('/api/v1/products/get/random/1');
       const randomProduct = response.data[0];
       if (randomProduct) {
         navigate(`/gameview/${randomProduct._id}`);
