@@ -57,29 +57,8 @@ app.use('/public/uploads', express.static('public/uploads'));
 app.use('/hotwheels', express.static(path.join(__dirname, 'public', 'hotwheels')));
 
 //////////////////////////////////////////
-// Serve static files from the build folder
+// Serve static files from the build folder (client-side React app)
 app.use(express.static(path.join(__dirname, 'build')));
-
-// Protected routes that should return index.html
-const protectedRoutes = [
-  '/cart',
-  '/profile',
-  '/wishlist',
-  '/orders',
-  '/checkout',
-];
-
-// Route handler for protected routes
-protectedRoutes.forEach((route) => {
-  app.get(route, (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-});
-
-// Fallback for other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 /////////////////////////////////////
 //
 
@@ -98,6 +77,19 @@ app.use(`${api}/payments`, paymentsRoutes);
 
 // Error Handler
 app.use(errorHandler);
+
+// -----------------------------
+// Fallback Route for Client-Side (React Router) 
+// -----------------------------
+// This should catch all GET requests that are not for the API,
+// and serve the React app's index.html so that React Router can handle them.
+app.get('*', (req, res) => {
+  // Optionally, you can exclude API routes from the catch-all.
+  if (req.originalUrl.startsWith(api)) {
+    return res.status(404).send('Not found');
+  }
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Database Connection
 mongoose.connect(process.env.CONNECTION_STRING, {
