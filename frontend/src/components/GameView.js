@@ -33,6 +33,7 @@ const GameView = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     const fetchProduct = async () => {
