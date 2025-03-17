@@ -56,6 +56,33 @@ app.use('/public/uploads', express.static('public/uploads'));
 // Serve static files from the "public" directory
 app.use('/hotwheels', express.static(path.join(__dirname, 'public', 'hotwheels')));
 
+//////////////////////////////////////////
+// Serve static files from the build folder
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Protected routes that should return index.html
+const protectedRoutes = [
+  '/cart',
+  '/profile',
+  '/wishlist',
+  '/orders',
+  '/checkout',
+];
+
+// Route handler for protected routes
+protectedRoutes.forEach((route) => {
+  app.get(route, (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+});
+
+// Fallback for other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+/////////////////////////////////////
+//
+
 // API Routes
 const api = process.env.API_URL;
 app.use(authJwt());
