@@ -137,7 +137,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axi.delete("http://localhost:3000/api/v1/cart", {
+      await axi.delete("/api/v1/cart", {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setCartItems([]); // Clear cart items from the frontend state
