@@ -37,7 +37,7 @@ const Checkout = () => {
         totalPrice: cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0)
       };
 
-      const response = await axios.post('http://localhost:3000/api/v1/orders', orderData, {
+      const response = await axios.post('/api/v1/orders', orderData, {
         headers: { 
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const Checkout = () => {
 
       if (response.data && response.data._id) {
         // Clear cart items from the database
-        await axi.delete('http://localhost:3000/api/v1/cart', {
+        await axi.delete('/api/v1/cart', {
           headers: { 
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
