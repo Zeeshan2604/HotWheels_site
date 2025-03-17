@@ -56,13 +56,6 @@ app.use('/public/uploads', express.static('public/uploads'));
 // Serve static files from the "public" directory
 app.use('/hotwheels', express.static(path.join(__dirname, 'public', 'hotwheels')));
 
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-
 // API Routes
 const api = process.env.API_URL;
 app.use(authJwt());
