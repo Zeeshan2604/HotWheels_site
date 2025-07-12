@@ -35,7 +35,9 @@ function App() {
               <Route path="/collection/:id" element={<SingleCollection />} />
               <Route path="/products" element={<ProductList />} />
               <Route path="/product/:id" element={<SingleProduct />} />
-              <Route path="/GameView" element={<GameView />} />
+              <Route path="/game" element={<GameView />} />
+              <Route path="/game/list" element={<GameView />} />
+              <Route path="/game/:id" element={<GameView />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
@@ -48,7 +50,6 @@ function App() {
                 } 
               />
               <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/game/:id" element={<GameView />} />
               <Route 
                 path="/orders" 
                 element={

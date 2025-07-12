@@ -35,7 +35,7 @@ if (!secret) {
 
 // CORS Configuration
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: ['http://localhost:3002'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -73,6 +73,7 @@ app.use(`${api}/payments`, paymentsRoutes);
 app.use(errorHandler);
 
 // Database Connection
+console.log("MongoDB URI:", process.env.CONNECTION_STRING);
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

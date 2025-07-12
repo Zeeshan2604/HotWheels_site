@@ -4,6 +4,16 @@ import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useAuth } from '../context/AuthContext';
 
+function getPasswordStrength(password) {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[a-z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+  return score;
+}
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -11,23 +21,21 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const { user, login } = useAuth();
-  // const location = useLocation();
-  // const from = location.state?.from?.pathname || "/";
 
-  // Redirect if already logged in
   useEffect(() => {
     if (user) {
       navigate('/', { replace: true });
     }
   }, [user, navigate]);
 
-  // If user is already logged in, don't render the registration form
   if (user) {
     return null;
   }
@@ -45,26 +53,22 @@ const Register = () => {
     setError("");
     setErrors([]);
     setLoading(true);
-
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords don't match!");
       setLoading(false);
       return;
     }
-
     if (!acceptTerms) {
       setError("Please accept the Terms of Service and Privacy Policy");
       setLoading(false);
       return;
     }
-
     try {
       const response = await axios.post("http://localhost:3000/api/v1/auth/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password
       });
-
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         login(response.data.user);
@@ -82,43 +86,62 @@ const Register = () => {
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
-    console.log("Google signup success:", credentialResponse);
-    // Add your Google signup success handling here
+    setError("");
+    setLoading(true);
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/auth/google", {
+        credential: credentialResponse.credential
+      });
+      if (response.data.success) {
+        localStorage.setItem("token", response.data.token);
+        login(response.data.user);
+        navigate('/', { replace: true });
+      }
+    } catch (error) {
+      setError(error.response?.data?.message || "An error occurred during Google signup");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGoogleError = () => {
-    console.log("Google signup failed");
+    setError("Google signup failed");
   };
 
+  const passwordStrength = getPasswordStrength(formData.password);
+  const strengthColors = ["bg-gray-400", "bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-green-500", "bg-emerald-600"];
+  const strengthLabels = ["Too short", "Weak", "Fair", "Good", "Strong", "Excellent"];
+
   return (
-    <section id="authentication" className="min-h-screen bg-black text-white py-20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto">
-          {/* Logo */}
-          <div className="text-center mb-12">
-            <Link to="/">
-              <h2 className="text-3xl font-bold">
+    <section className="min-h-screen bg-black text-white flex items-center justify-center px-4 pt-20">
+      <div className="w-full max-w-md">
+        {/* Logo Section */}
+        <div className="text-center mb-8">
+          <Link to="/" className="inline-block">
+            <h1 className="text-4xl font-bold mb-2">
                 HotWheels<span className="text-red-500">X</span>
-              </h2>
+            </h1>
             </Link>
-            <p className="text-gray-400 mt-2">Create your collector's account</p>
+          <p className="text-gray-400">Join the collector's community</p>
           </div>
 
-          {/* Auth Tabs */}
-          <div className="flex gap-4 mb-8">
+        {/* Auth Card */}
+        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8">
+          {/* Tab Navigation */}
+          <div className="flex gap-2 mb-8">
             <Link 
               to="/login"
-              className="flex-1 py-3 bg-zinc-800 rounded-xl font-bold text-gray-400 hover:text-white transition-colors text-center"
+              className="flex-1 py-3 bg-zinc-800 text-gray-400 hover:text-white rounded-xl font-bold text-center transition-colors"
             >
               Sign In
             </Link>
-            <button className="flex-1 py-3 bg-zinc-800 rounded-xl font-bold text-red-500 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-red-500">
+            <button className="flex-1 py-3 bg-red-500 text-white rounded-xl font-bold">
               Sign Up
             </button>
           </div>
 
-          {/* Social Signup */}
-          <div className="space-y-4 mb-8">
+          {/* Google Signup */}
+          <div className="mb-6">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={handleGoogleError}
@@ -130,113 +153,162 @@ const Register = () => {
             />
           </div>
 
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex-1 h-px bg-zinc-800"></div>
-            <span className="text-gray-400">or</span>
-            <div className="flex-1 h-px bg-zinc-800"></div>
+          {/* Divider */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex-1 h-px bg-zinc-700"></div>
+            <span className="text-gray-400 text-sm">or continue with email</span>
+            <div className="flex-1 h-px bg-zinc-700"></div>
           </div>
 
           {/* Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-400">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                 Full Name
               </label>
-              <div className="relative">
-                <i className="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-zinc-800 rounded-xl py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Enter your full name"
                   required
+                autoComplete="name"
                 />
-              </div>
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-400">
-                Email
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                Email Address
               </label>
-              <div className="relative">
-                <i className="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-zinc-800 rounded-xl py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Enter your email"
                   required
+                autoComplete="email"
                 />
-              </div>
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-400">
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                 Password
               </label>
               <div className="relative">
-                <i className="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full bg-zinc-800 rounded-xl py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-red-500"
-                  placeholder="Create a password"
+                  className="w-full bg-zinc-800 border border-zinc-700 rounded-xl py-3 px-4 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  placeholder="Create a strong password"
                   required
+                  autoComplete="new-password"
                 />
+                <button
+                  type="button"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 focus:outline-none"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <i className="fa-regular fa-eye-slash"></i>
+                  ) : (
+                    <i className="fa-regular fa-eye"></i>
+                  )}
+                </button>
+              </div>
+              {/* Password strength meter */}
+              <div className="mt-3">
+                <div className="h-2 w-full rounded-full bg-zinc-700 overflow-hidden">
+                  <div 
+                    className={`h-2 rounded-full transition-all duration-300 ${strengthColors[passwordStrength]}`} 
+                    style={{ width: `${(passwordStrength/5)*100}%` }}
+                  ></div>
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-xs text-gray-400">
+                    Password strength: <span className={`font-medium ${passwordStrength >= 4 ? 'text-green-400' : passwordStrength >= 2 ? 'text-yellow-400' : 'text-red-400'}`}>
+                      {strengthLabels[passwordStrength]}
+                    </span>
+                  </span>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  Use at least 8 characters with uppercase, lowercase, number, and symbol
+                </div>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-400">
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
                 Confirm Password
               </label>
               <div className="relative">
-                <i className="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input
-                  type="password"
+                  type={showConfirm ? "text" : "password"}
                   id="confirmPassword"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full bg-zinc-800 rounded-xl py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-zinc-800 border border-zinc-700 rounded-xl py-3 px-4 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Confirm your password"
                   required
+                  autoComplete="new-password"
                 />
+                <button
+                  type="button"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 focus:outline-none"
+                  onClick={() => setShowConfirm((prev) => !prev)}
+                  tabIndex={-1}
+                  aria-label={showConfirm ? "Hide password" : "Show password"}
+                >
+                  {showConfirm ? (
+                    <i className="fa-regular fa-eye-slash"></i>
+                  ) : (
+                    <i className="fa-regular fa-eye"></i>
+                  )}
+                </button>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-start gap-3">
               <input
                 type="checkbox"
                 id="terms"
                 checked={acceptTerms}
                 onChange={(e) => setAcceptTerms(e.target.checked)}
-                className="w-4 h-4 rounded border-zinc-600 text-red-500 focus:ring-red-500 bg-zinc-800"
+                className="w-4 h-4 rounded border-zinc-600 text-red-500 focus:ring-red-500 bg-zinc-800 mt-1"
                 required
               />
-              <label htmlFor="terms" className="text-sm text-gray-400">
-                I agree to the Terms of Service and Privacy Policy
+              <label htmlFor="terms" className="text-sm text-gray-400 leading-relaxed">
+                I agree to the{" "}
+                <Link to="/terms" className="text-red-500 hover:text-red-400 font-medium">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link to="/privacy" className="text-red-500 hover:text-red-400 font-medium">
+                  Privacy Policy
+                </Link>
               </label>
             </div>
 
             {error && (
-              <div className="bg-red-500/10 text-red-500 p-4 rounded-xl mb-4">
+              <div className="bg-red-500/20 border border-red-500/30 text-red-400 p-4 rounded-xl text-sm text-center">
                 {error}
               </div>
             )}
 
             {errors.length > 0 && (
-              <div className="bg-red-500/10 text-red-500 p-4 rounded-xl mb-4">
-                <ul className="list-disc list-inside">
+              <div className="bg-red-500/20 border border-red-500/30 text-red-400 p-4 rounded-xl text-sm">
+                <ul className="list-disc list-inside space-y-1">
                   {errors.map((err, index) => (
                     <li key={index}>{err}</li>
                   ))}
@@ -246,34 +318,30 @@ const Register = () => {
 
             <button
               type="submit"
-              className="w-full py-3 bg-red-500 hover:bg-red-600 rounded-xl font-bold transition-colors disabled:opacity-50"
+              className="w-full py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:transform-none"
               disabled={loading}
             >
-              {loading ? "Signing up..." : "Create Account"}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                  </svg>
+                  Creating account...
+                </span>
+              ) : "Create Account"}
             </button>
           </form>
 
-          {/* Additional Info */}
-          <div className="mt-8 text-center text-sm text-gray-400">
-            <p>
+          {/* Sign In Link */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-400">
               Already have an account?{" "}
-              <Link to="/login" className="text-red-500 hover:text-red-400">
-                Sign in
+              <Link to="/login" className="text-red-500 hover:text-red-400 font-medium">
+                Sign in here
               </Link>
             </p>
           </div>
-
-          {/* Terms */}
-          <p className="mt-8 text-center text-xs text-gray-400">
-            By creating an account, you agree to our{" "}
-            <Link to="/terms" className="text-white hover:text-gray-300">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link to="/privacy" className="text-white hover:text-gray-300">
-              Privacy Policy
-            </Link>
-          </p>
         </div>
       </div>
     </section>

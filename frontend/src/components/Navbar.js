@@ -128,7 +128,7 @@ const Navbar = () => {
               <Link to="/products" className="hover:text-red-500 transition-colors">
                 Products
               </Link>
-              <Link to="/gameview" className="hover:text-red-500 transition-colors">
+              <Link to="/game" className="hover:text-red-500 transition-colors">
                 3D View
               </Link>
               {!user && (
@@ -369,7 +369,7 @@ const Navbar = () => {
                   Products
                 </Link>
                 <Link 
-                  to="/gameview" 
+                  to="/game" 
                   className="flex items-center gap-4 px-4 py-3 hover:bg-zinc-800/50 rounded-xl transition-colors font-bold"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

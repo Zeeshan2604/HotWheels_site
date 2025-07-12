@@ -63,7 +63,7 @@ export const CartProvider = ({ children }) => {
       // Call your backend API to add/update the cart
       const response = await axios.post("http://localhost:3000/api/v1/cart", {
         productId: product._id,
-        quantity: 1
+        quantity: product.quantity || 1
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -88,12 +88,19 @@ export const CartProvider = ({ children }) => {
         throw new Error('Please login to remove items from cart');
       }
 
-      await axios.delete(`http://localhost:3000/api/v1/cart/${productId}`, {
+      const response = await axios.delete(`http://localhost:3000/api/v1/cart/${productId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      setCartItems(cartItems.filter(item => item.product._id !== productId));
+      
+      if (response.data.success) {
+        // Update local state with the response from the server
+        setCartItems(response.data.items || []);
+      } else {
+        // Fallback to local filtering if server doesn't return updated items
+        setCartItems(cartItems.filter(item => item.product._id !== productId));
+      }
     } catch (err) {
       console.error("Error removing product from cart:", err);
       setError(err.response?.data?.message || err.message);
@@ -126,14 +133,31 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const clearCart = () => {
-    setCartItems([]); // Clear cart items
+  const clearCart = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Please login to clear cart');
+      }
+
+      await axios.delete("http://localhost:3000/api/v1/cart", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      setCartItems([]); // Clear cart items from local state
+    } catch (err) {
+      console.error("Error clearing cart:", err);
+      setError(err.response?.data?.message || err.message);
+    }
   };
 
   // Listen for logout event
   useEffect(() => {
     if (!user) {
-      clearCart(); // Clear cart items when user logs out
+      setCartItems([]); // Clear cart items when user logs out
+      setWishlistItems([]); // Clear wishlist items when user logs out
     }
   }, [user]);
 

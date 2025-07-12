@@ -121,6 +121,13 @@ router.delete("/:productId", authJwt(), async (req, res) => {
     );
 
     await cart.save();
+    
+    // Populate product details before sending response
+    await cart.populate({
+      path: "items.product",
+      select: "name price image"
+    });
+    
     res.status(200).json({ success: true, items: cart.items });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

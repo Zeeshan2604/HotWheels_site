@@ -238,9 +238,9 @@ const seedDatabase = async () => {
     console.log('Connected to database');
 
     // Clear existing data
-    await Category.deleteMany({});
-    await Product.deleteMany({});
-    console.log('Cleared existing data');
+    // await Category.deleteMany({});
+    // await Product.deleteMany({});
+    // console.log('Cleared existing data');
 
     // Insert collections
     const savedCollections = await Category.insertMany(collections);
