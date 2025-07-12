@@ -148,33 +148,33 @@ const SingleProduct = () => {
 
         {/* Thumbnail Grid */}
         {images.length > 1 && (
-          <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-            {images.map((image, index) => (
-              <motion.div
-                key={index}
+        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+          {images.map((image, index) => (
+            <motion.div
+              key={index}
                 className={`relative aspect-square cursor-pointer rounded-2xl overflow-hidden border-2 transition-all bg-gradient-to-br from-zinc-800 to-zinc-900 ${
                   selectedImage === index ? 'border-red-500 scale-105 shadow-lg shadow-red-500/25' : 'border-transparent hover:border-zinc-600'
-                }`}
+              }`}
                 onClick={() => setSelectedImage(index)}
-                whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <img
-                  src={image}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Overlay for multiple images */}
-                {index === images.length - 1 && images.length > 8 && (
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <img
+                src={image}
+                alt={`Thumbnail ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+              
+              {/* Overlay for multiple images */}
+              {index === images.length - 1 && images.length > 8 && (
                   <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center text-white font-medium">
-                    +{images.length - 8}
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
+                  +{images.length - 8}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
         )}
       </div>
     );
@@ -341,9 +341,9 @@ const SingleProduct = () => {
               
               {/* Content skeleton */}
               <div className="space-y-8">
-                <div className="space-y-4">
-                  <div className="h-8 bg-zinc-800 rounded w-3/4"></div>
-                  <div className="h-4 bg-zinc-800 rounded w-1/2"></div>
+              <div className="space-y-4">
+                <div className="h-8 bg-zinc-800 rounded w-3/4"></div>
+                <div className="h-4 bg-zinc-800 rounded w-1/2"></div>
                   <div className="h-6 bg-zinc-800 rounded w-1/4"></div>
                 </div>
                 <div className="space-y-4">
@@ -394,12 +394,12 @@ const SingleProduct = () => {
             <p className="text-gray-400 mb-8">{error}</p>
             <div className="flex gap-4 justify-center">
               <motion.button 
-                onClick={() => navigate(-1)}
+            onClick={() => navigate(-1)}
                 className="px-6 py-3 bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-zinc-700 hover:to-zinc-600 rounded-full transition-all border border-zinc-600/50 backdrop-blur-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-              >
-                Go Back
+          >
+            Go Back
               </motion.button>
               <motion.button 
                 onClick={() => window.location.reload()}
@@ -497,10 +497,10 @@ const SingleProduct = () => {
               <div className="flex items-center gap-3 mb-4">
                 <motion.h1 
                   className="text-4xl font-bold bg-gradient-to-r from-white via-red-400 to-white bg-clip-text text-transparent"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                >
+          >
                   {product.name}
                 </motion.h1>
                 {product.isFeatured && (
@@ -644,7 +644,7 @@ const SingleProduct = () => {
                   ) : (
                     <>
                       <i className="fas fa-cart-plus"></i>
-                      Add to Cart
+                  Add to Cart
                     </>
                   )}
                 </motion.button>
@@ -702,15 +702,15 @@ const SingleProduct = () => {
               
               <div className="flex flex-col gap-4">
                 <motion.button 
-                  onClick={() => navigate(`/game/${product._id}`)}
+                          onClick={() => navigate(`/game/${product._id}`)}
                   className="w-full h-12 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-full flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-500/25 border border-blue-500/50"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                >
-                  <i className="fas fa-cube text-white"></i>
-                  View in 3D
+                        >
+                          <i className="fas fa-cube text-white"></i>
+                          View in 3D
                 </motion.button>
-              </div>
+                      </div>
             </div>
 
             {/* Additional Details */}
@@ -755,7 +755,7 @@ const SingleProduct = () => {
 
       {/* Toast Message */}
       <AnimatePresence>
-        {toastMessage && (
+      {toastMessage && (
           <motion.div 
             className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full shadow-lg z-50 border border-green-400/50 backdrop-blur-sm"
             initial={{ opacity: 0, y: -20, scale: 0.8 }}
@@ -763,9 +763,9 @@ const SingleProduct = () => {
             exit={{ opacity: 0, y: -20, scale: 0.8 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            {toastMessage}
+          {toastMessage}
           </motion.div>
-        )}
+      )}
       </AnimatePresence>
 
       <Footer />

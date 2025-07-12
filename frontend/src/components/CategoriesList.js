@@ -126,7 +126,7 @@ const CategoriesList = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-6xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-red-100 to-orange-100 bg-clip-text text-transparent"
             >
-              Our Collections
+                Our Collections
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -134,9 +134,9 @@ const CategoriesList = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-1xl text-gray-200 leading-relaxed"
             >
-              Explore our curated collections of premium die-cast models, from classic cars to modern supercars.
+                Explore our curated collections of premium die-cast models, from classic cars to modern supercars.
             </motion.p>
-          </div>
+            </div>
         </section>
         {/* Search and Filter Bar */}
         <motion.div
@@ -148,15 +148,15 @@ const CategoriesList = () => {
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search Bar */}
             <div className="flex-1 relative">
-              <input
-                type="text"
-                placeholder="Search collections..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                <input
+                  type="text"
+                  placeholder="Search collections..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-6 py-4 bg-zinc-900/80 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 backdrop-blur-md border border-zinc-700/50"
-              />
-              <i className="fas fa-search absolute right-6 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
+                />
+                <i className="fas fa-search absolute right-6 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              </div>
             {/* Filter Dropdown */}
             <div className="relative">
               <select
@@ -199,8 +199,8 @@ const CategoriesList = () => {
             : 'space-y-4'
         }`}>
           {filteredCategories.map((category, index) => (
-            <motion.div
-              key={category._id}
+                <motion.div
+                  key={category._id}
               initial={{ opacity: 0, y: 30, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -263,22 +263,22 @@ const CategoriesList = () => {
                             <span key={tag} className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full">
                               {tag}
                             </span>
-                          ))}
-                        </div>
+              ))}
+            </div>
                       )}
-                    </div>
+              </div>
                     <p className="text-gray-400 mb-3">
                       {category.description || 'Explore our exclusive collection of premium models'}
-                    </p>
+                  </p>
                     <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold">
                       View Collection <i className="fa-solid fa-arrow-right"></i>
-                    </button>
+                  </button>
                   </div>
                 </>
               )}
             </motion.div>
           ))}
-        </div>
+          </div>
       </div>
       <Footer />
     </div>

@@ -90,12 +90,12 @@ const SingleCollection = () => {
           >
             Clear Filters
           </button>
-          <button
-            onClick={() => navigate('/products')}
+      <button
+        onClick={() => navigate('/products')}
             className="px-6 py-3 bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-zinc-700 hover:to-zinc-600 rounded-full transition-all font-bold"
-          >
-            Browse All Products
-          </button>
+      >
+        Browse All Products
+      </button>
         </div>
       </motion.div>
     </div>
@@ -158,12 +158,12 @@ const SingleCollection = () => {
               >
                 Try Again
               </button>
-              <button 
-                onClick={() => navigate(-1)}
+          <button 
+            onClick={() => navigate(-1)}
                 className="px-8 py-4 bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-zinc-700 hover:to-zinc-600 rounded-full transition-all font-bold text-lg"
-              >
-                Go Back
-              </button>
+          >
+            Go Back
+          </button>
             </div>
           </div>
         </div>
@@ -190,25 +190,25 @@ const SingleCollection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Hero Section */}
         <section className="relative py-5 overflow-hidden w-full">
-          <div className="container mx-auto px-4 relative z-10">
-            {/* Breadcrumb */}
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Breadcrumb */}
             <motion.nav
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex items-center gap-2 text-sm text-gray-400 mb-6"
             >
-              <button onClick={() => navigate('/')} className="hover:text-white transition-colors">
-                Home
-              </button>
-              <span>/</span>
-              <button onClick={() => navigate('/collections')} className="hover:text-white transition-colors">
-                Collections
-              </button>
-              <span>/</span>
-              <span className="text-white">{collection.name}</span>
+            <button onClick={() => navigate('/')} className="hover:text-white transition-colors">
+              Home
+            </button>
+            <span>/</span>
+            <button onClick={() => navigate('/collections')} className="hover:text-white transition-colors">
+              Collections
+            </button>
+            <span>/</span>
+            <span className="text-white">{collection.name}</span>
             </motion.nav>
-            <div className="max-w-4xl mx-auto text-center relative">
-              <motion.div
+          <div className="max-w-4xl mx-auto text-center relative">
+            <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -216,11 +216,11 @@ const SingleCollection = () => {
               >
               </motion.div>
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-5xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white via-red-100 to-orange-100 bg-clip-text text-transparent"
-              >
+            >
                 {collection.name}
               </motion.h1>
               <motion.p
@@ -238,7 +238,7 @@ const SingleCollection = () => {
                 className="flex flex-wrap gap-3 justify-center mb-4"
               >
                 {collection.tags?.map(tag => (
-                  <span
+                  <span 
                     key={tag}
                     className="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm text-white border border-white/20 hover:bg-white/20 transition-colors font-bold"
                   >
@@ -271,7 +271,7 @@ const SingleCollection = () => {
                 </div>
               </motion.div>
             </div>
-          </div>
+                  </div>
         </section>
         {/* Products Section */}
         <section className="py-8">
@@ -321,7 +321,7 @@ const SingleCollection = () => {
                     className="accent-red-500 w-24"
                   />
                   <span className="text-white font-bold">${priceRange[1]}</span>
-                </div>
+                  </div>
                 {/* View Mode Toggle */}
                 <div className="flex bg-zinc-900/80 rounded-full p-1 backdrop-blur-md border border-zinc-700/50">
                   <button
@@ -396,8 +396,8 @@ const SingleCollection = () => {
                             <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold">
                               View Product <i className="fa-solid fa-arrow-right"></i>
                             </button>
-                          </div>
-                        </div>
+          </div>
+        </div>
                       </>
                     ) : (
                       <>
@@ -449,7 +449,7 @@ const SingleCollection = () => {
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
             onClick={() => setShowQuickView(false)}
           >
-            <motion.div
+              <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -507,7 +507,7 @@ const SingleCollection = () => {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+              </motion.div>
         )}
       </AnimatePresence>
 

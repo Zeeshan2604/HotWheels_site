@@ -68,7 +68,7 @@ const Cart = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
       
-      {cartItems.length === 0 ? (
+          {cartItems.length === 0 ? (
         // Empty cart - centered content
         <div className="container mx-auto px-4 py-8 mt-10 relative z-10">
           <div className="w-full flex items-center justify-center min-h-[60vh]">
@@ -83,87 +83,87 @@ const Cart = () => {
               </Link>
             </div>
           </div>
-        </div>
-      ) : (
+            </div>
+          ) : (
         // Cart with items - normal layout
         <div className="container mx-auto px-4 py-8 mt-10 flex flex-col lg:flex-row gap-8 relative z-10">
           <div className="w-full lg:w-2/3">
             <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-white via-red-400 to-white bg-clip-text text-transparent">Your Cart</h1>
             
             {/* Desktop Table View */}
-            <div className="hidden sm:block flex-1 overflow-x-auto">
-              <table className="w-full table-auto">
-                <thead className="hidden sm:table-header-group">
-                  <tr className="border-b border-gray-700">
-                    <th className="py-2 text-left">Product</th>
-                    <th className="py-2 text-center">Quantity</th>
-                    <th className="py-2 text-right">Price</th>
-                    <th className="py-2 text-right">Total</th>
-                    <th className="py-2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cartItems.map((item) => {
-                    if (!item.product) return null;
-                    
-                    return (
-                      <tr key={item.product._id} className="border-b border-gray-800 block sm:table-row">
-                        <td className="block sm:table-cell py-4">
-                          <div className="flex items-center gap-4">
-                            {item.product.image && (
-                              <img
-                                src={item.product.image}
-                                alt={item.product.name}
-                                className="w-full sm:w-32 h-32 flex-shrink-0 rounded"
-                              />
-                            )}
-                            <div className="flex-1 min-w-0">
-                              <h3 className="text-lg sm:text-xl font-bold truncate">{item.product.name}</h3>
-                              <p className="text-base sm:text-lg text-gray-400">
-                                {item.product.category?.name}
-                              </p>
+              <div className="hidden sm:block flex-1 overflow-x-auto">
+                <table className="w-full table-auto">
+                  <thead className="hidden sm:table-header-group">
+                    <tr className="border-b border-gray-700">
+                      <th className="py-2 text-left">Product</th>
+                      <th className="py-2 text-center">Quantity</th>
+                      <th className="py-2 text-right">Price</th>
+                      <th className="py-2 text-right">Total</th>
+                      <th className="py-2"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cartItems.map((item) => {
+                      if (!item.product) return null;
+                      
+                      return (
+                        <tr key={item.product._id} className="border-b border-gray-800 block sm:table-row">
+                          <td className="block sm:table-cell py-4">
+                            <div className="flex items-center gap-4">
+                              {item.product.image && (
+                                <img
+                                  src={item.product.image}
+                                  alt={item.product.name}
+                                  className="w-full sm:w-32 h-32 flex-shrink-0 rounded"
+                                />
+                              )}
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-lg sm:text-xl font-bold truncate">{item.product.name}</h3>
+                                <p className="text-base sm:text-lg text-gray-400">
+                                  {item.product.category?.name}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="block sm:table-cell py-4">
-                          <div className="flex items-center gap-2 mt-2 sm:mt-0">
-                            <div className="flex items-center bg-zinc-800 border border-zinc-700 rounded-full">
-                              <button
-                                onClick={() => updateQuantity(item.product._id, Math.max(1, item.quantity - 1))}
-                                className="px-3 py-1 text-red-500 hover:text-red-400 transition-colors"
-                              >
-                                <i className="fas fa-minus"></i>
-                              </button>
-                              <span className="w-12 text-center">{item.quantity}</span>
-                              <button
-                                onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
-                                className="px-3 py-1 text-red-500 hover:text-red-400 transition-colors"
-                              >
-                                <i className="fas fa-plus"></i>
-                              </button>
+                          </td>
+                          <td className="block sm:table-cell py-4">
+                            <div className="flex items-center gap-2 mt-2 sm:mt-0">
+                              <div className="flex items-center bg-zinc-800 border border-zinc-700 rounded-full">
+                                <button
+                                  onClick={() => updateQuantity(item.product._id, Math.max(1, item.quantity - 1))}
+                                  className="px-3 py-1 text-red-500 hover:text-red-400 transition-colors"
+                                >
+                                  <i className="fas fa-minus"></i>
+                                </button>
+                                <span className="w-12 text-center">{item.quantity}</span>
+                                <button
+                                  onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                                  className="px-3 py-1 text-red-500 hover:text-red-400 transition-colors"
+                                >
+                                  <i className="fas fa-plus"></i>
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="block sm:table-cell py-4 text-right">
-                          <p className="text-base sm:text-lg">${item.product.price}</p>
-                        </td>
-                        <td className="block sm:table-cell py-4 text-right">
-                          ${(item.product.price * item.quantity).toFixed(2)}
-                        </td>
-                        <td className="block sm:table-cell py-4 text-right">
-                          <button
-                            onClick={() => removeFromCart(item.product._id)}
-                            className="text-red-500 hover:text-red-400 sm:ml-4 mt-2 sm:mt-0"
-                          >
-                            <i className="fas fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <div className="flex justify-end mt-4">
+                          </td>
+                          <td className="block sm:table-cell py-4 text-right">
+                            <p className="text-base sm:text-lg">${item.product.price}</p>
+                          </td>
+                          <td className="block sm:table-cell py-4 text-right">
+                            ${(item.product.price * item.quantity).toFixed(2)}
+                          </td>
+                          <td className="block sm:table-cell py-4 text-right">
+                            <button
+                              onClick={() => removeFromCart(item.product._id)}
+                              className="text-red-500 hover:text-red-400 sm:ml-4 mt-2 sm:mt-0"
+                            >
+                              <i className="fas fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <div className="flex justify-end mt-4">
                 <button 
                   onClick={async () => {
                     try {
@@ -174,61 +174,61 @@ const Cart = () => {
                   }} 
                   className="px-4 py-2 bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-zinc-700 hover:to-zinc-600 rounded-full transition-all border border-zinc-600/50 backdrop-blur-sm"
                 >
-                  Clear Cart
-                </button>
+                    Clear Cart
+                  </button>
               </div>
             </div>
 
             {/* Mobile Card View */}
-            <div className="sm:hidden space-y-4">
-              {cartItems.map((item) => (
-                <div key={item.product._id} className="bg-zinc-900 p-4 rounded-xl">
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={item.product.image}
-                        alt={item.product.name}
-                        className="w-24 h-24 object-cover rounded"
-                      />
-                      <div>
-                        <h3 className="font-medium truncate">{item.product.name}</h3>
-                        <p className="text-sm text-gray-400">{item.product.category?.name}</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="font-medium">${item.product.price}</p>
-                      <button
-                        onClick={() => removeFromCart(item.product._id)}
-                        className="text-red-500 hover:text-red-400"
-                      >
-                        <i className="fas fa-times"></i>
-                      </button>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center bg-zinc-800 border border-zinc-700 rounded-full">
-                        <button
-                          onClick={() => updateQuantity(item.product._id, Math.max(1, item.quantity - 1))}
-                          className="px-3 py-1 text-red-500 hover:text-red-400"
-                        >
-                          <i className="fas fa-minus"></i>
-                        </button>
-                        <span className="w-12 text-center">{item.quantity}</span>
-                        <button
-                          onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
-                          className="px-3 py-1 text-red-500 hover:text-red-400"
-                        >
-                          <i className="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <p className="font-medium">
-                        ${(item.product.price * item.quantity).toFixed(2)}
-                      </p>
+          <div className="sm:hidden space-y-4">
+            {cartItems.map((item) => (
+              <div key={item.product._id} className="bg-zinc-900 p-4 rounded-xl">
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className="w-24 h-24 object-cover rounded"
+                    />
+                    <div>
+                      <h3 className="font-medium truncate">{item.product.name}</h3>
+                      <p className="text-sm text-gray-400">{item.product.category?.name}</p>
                     </div>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium">${item.product.price}</p>
+                    <button
+                      onClick={() => removeFromCart(item.product._id)}
+                      className="text-red-500 hover:text-red-400"
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center bg-zinc-800 border border-zinc-700 rounded-full">
+                      <button
+                        onClick={() => updateQuantity(item.product._id, Math.max(1, item.quantity - 1))}
+                        className="px-3 py-1 text-red-500 hover:text-red-400"
+                      >
+                        <i className="fas fa-minus"></i>
+                      </button>
+                      <span className="w-12 text-center">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                        className="px-3 py-1 text-red-500 hover:text-red-400"
+                      >
+                        <i className="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <p className="font-medium">
+                      ${(item.product.price * item.quantity).toFixed(2)}
+                    </p>
+                  </div>
                 </div>
-              ))}
-              <div className="sm:hidden mt-6">
-                <button 
+              </div>
+            ))}
+            <div className="sm:hidden mt-6">
+              <button 
                   onClick={async () => {
                     try {
                       await clearCart();
@@ -237,12 +237,12 @@ const Cart = () => {
                     }
                   }}
                   className="w-full px-4 py-2 bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-zinc-700 hover:to-zinc-600 rounded-full transition-all border border-zinc-600/50 backdrop-blur-sm"
-                >
-                  Clear Cart
-                </button>
-              </div>
+              >
+                Clear Cart
+              </button>
             </div>
           </div>
+        </div>
 
           {/* Order Summary */}
           <div className="w-full lg:w-1/3 bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm p-6 rounded-3xl lg:sticky lg:top-4 border border-zinc-700/50">
@@ -259,13 +259,13 @@ const Cart = () => {
             {/* Pricing Breakdown */}
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span className="text-gray-400">Subtotal</span>
+            <span className="text-gray-400">Subtotal</span>
                 <span className="font-medium text-white">${getTotalPrice().toFixed(2)}</span>
-              </div>
+          </div>
               
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-400">Shipping</span>
+            <span className="text-gray-400">Shipping</span>
                   {getTotalItems() > 1 && (
                     <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full border border-green-500/30">
                       FREE
@@ -305,24 +305,24 @@ const Cart = () => {
                     <p className="text-green-300 text-xs">You saved ${getShippingSavings().toFixed(2)} on shipping</p>
                   </div>
                 </div>
-              </div>
+          </div>
             )}
 
             <div className="border-t border-zinc-700 pt-4 mb-6">
               <div className="flex justify-between text-xl font-bold">
                 <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Total</span>
                 <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">${getFinalTotal().toFixed(2)}</span>
-              </div>
-            </div>
-            
-            <Link 
-              to="/checkout" 
-              className="w-full px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-full transition-all text-center font-bold shadow-lg shadow-red-500/25 border border-red-400/50"
-            >
-              Proceed to Checkout
-            </Link>
           </div>
+          </div>
+            
+          <Link 
+            to="/checkout" 
+              className="w-full px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-full transition-all text-center font-bold shadow-lg shadow-red-500/25 border border-red-400/50"
+          >
+            Proceed to Checkout
+          </Link>
         </div>
+      </div>
       )}
       <Footer />
     </div>

@@ -167,7 +167,7 @@ const Wishlist = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Your Curated Collection
+          Your Curated Collection
           </motion.h1>
           <motion.div 
             className="w-24 h-1 bg-gradient-to-r from-red-500 to-red-600 mx-auto rounded-full"
@@ -189,12 +189,12 @@ const Wishlist = () => {
             </div>
             <div className="text-gray-400 text-lg mb-6">Your wishlist feels lonely...</div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                to="/products" 
+            <Link 
+              to="/products" 
                 className="inline-block bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-full transition-all font-bold shadow-lg hover:shadow-red-500/25 border border-red-400/50"
-              >
-                Explore Hot Wheels
-              </Link>
+            >
+              Explore Hot Wheels
+            </Link>
             </motion.div>
           </motion.div>
         ) : (
@@ -214,44 +214,44 @@ const Wishlist = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-red-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <motion.div
                     className="relative bg-zinc-900/80 backdrop-blur-md rounded-3xl overflow-hidden cursor-pointer border border-zinc-700/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] transition-all duration-300 h-full flex flex-col"
-                    onClick={() => navigate(`/product/${item.product._id}`)}
-                  >
+                  onClick={() => navigate(`/product/${item.product._id}`)}
+                >
                     <div className="aspect-square overflow-hidden flex-shrink-0">
-                      <img 
-                        src={item.product?.image} 
-                        alt={item.product?.name} 
-                        className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-                      />
+                    <img 
+                      src={item.product?.image} 
+                      alt={item.product?.name} 
+                      className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                    />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    
+                  </div>
+                  
                     <div className="p-6 flex flex-col flex-grow">
                       <h2 className="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors line-clamp-2">{item.product?.name}</h2>
                       <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">{item.product?.description}</p>
-                      
+                    
                       <div className="flex items-center justify-between mt-auto">
                         <span className="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent group-hover:from-red-400 group-hover:to-red-500 transition-all">
                           ${item.product?.price.toFixed(2)}
                         </span>
-                        <div className="flex space-x-2">
+                      <div className="flex space-x-2">
                           <motion.button 
-                            onClick={(e) => { 
-                              e.stopPropagation(); 
-                              handleRemoveFromWishlist(item._id);
-                            }}
+                          onClick={(e) => { 
+                            e.stopPropagation(); 
+                            handleRemoveFromWishlist(item._id);
+                          }}
                             className="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-full flex items-center justify-center transition-all shadow-lg hover:shadow-red-500/25 border border-red-400/50"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                          >
-                            <i className="fas fa-trash text-white text-sm"></i>
+                        >
+                          <i className="fas fa-trash text-white text-sm"></i>
                           </motion.button>
                           <motion.button 
-                            onClick={(e) => { e.stopPropagation(); handleAddToCart(item.product); }}
+                          onClick={(e) => { e.stopPropagation(); handleAddToCart(item.product); }}
                             className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-full flex items-center justify-center transition-all shadow-lg hover:shadow-green-500/25 border border-green-400/50"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                          >
-                            <i className="fas fa-cart-plus text-white text-sm"></i>
+                        >
+                          <i className="fas fa-cart-plus text-white text-sm"></i>
                           </motion.button>
                         </div>
                       </div>

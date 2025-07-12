@@ -143,7 +143,7 @@ const Profile = () => {
             className="bg-zinc-900/80 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-zinc-700/50 shadow-[0_0_30px_rgba(239,68,68,0.1)]"
           >
             <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <motion.div 
                   className="space-y-3"
                   initial={{ opacity: 0, x: -20 }}
@@ -151,16 +151,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -170,16 +170,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -189,16 +189,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 1.0 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -208,16 +208,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 1.1 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    Street
-                  </label>
-                  <input
-                    type="text"
-                    name="street"
-                    value={formData.street}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  Street
+                </label>
+                <input
+                  type="text"
+                  name="street"
+                  value={formData.street}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -227,16 +227,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 1.2 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    Apartment
-                  </label>
-                  <input
-                    type="text"
-                    name="apartment"
-                    value={formData.apartment}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  Apartment
+                </label>
+                <input
+                  type="text"
+                  name="apartment"
+                  value={formData.apartment}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -246,16 +246,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 1.3 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  City
+                </label>
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -265,16 +265,16 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 1.4 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    ZIP Code
-                  </label>
-                  <input
-                    type="text"
-                    name="zip"
-                    value={formData.zip}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  ZIP Code
+                </label>
+                <input
+                  type="text"
+                  name="zip"
+                  value={formData.zip}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
 
                 <motion.div 
@@ -284,29 +284,29 @@ const Profile = () => {
                   transition={{ duration: 0.6, delay: 1.5 }}
                 >
                   <label className="block text-sm font-medium text-gray-300">
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    disabled={!isEditing}
+                  Country
+                </label>
+                <input
+                  type="text"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                     className="w-full bg-zinc-800/50 backdrop-blur-sm rounded-xl py-4 px-4 disabled:opacity-50 border border-zinc-700/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-                  />
+                />
                 </motion.div>
-              </div>
+            </div>
 
-              {error && (
+            {error && (
                 <motion.div 
                   className="bg-gradient-to-r from-red-500/10 to-red-600/10 text-red-400 p-4 rounded-xl border border-red-500/20 backdrop-blur-sm"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {error}
+                {error}
                 </motion.div>
-              )}
+            )}
 
               <motion.div 
                 className="flex justify-end gap-4"
@@ -314,40 +314,40 @@ const Profile = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1.6 }}
               >
-                {isEditing ? (
-                  <>
+              {isEditing ? (
+                <>
                     <motion.button
-                      type="button"
-                      onClick={() => setIsEditing(false)}
+                    type="button"
+                    onClick={() => setIsEditing(false)}
                       className="px-8 py-4 bg-zinc-800/50 backdrop-blur-sm rounded-xl hover:bg-zinc-700/50 transition-all border border-zinc-700/50 font-medium"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                    >
-                      Cancel
+                  >
+                    Cancel
                     </motion.button>
                     <motion.button
-                      type="submit"
+                    type="submit"
                       className="px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-xl transition-all font-bold shadow-lg hover:shadow-red-500/25 border border-red-400/50 disabled:opacity-50"
-                      disabled={loading}
+                    disabled={loading}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                    >
-                      {loading ? 'Saving...' : 'Save Changes'}
+                  >
+                    {loading ? 'Saving...' : 'Save Changes'}
                     </motion.button>
-                  </>
-                ) : (
+                </>
+              ) : (
                   <motion.button
-                    type="button"
-                    onClick={() => setIsEditing(true)}
+                  type="button"
+                  onClick={() => setIsEditing(true)}
                     className="px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-xl transition-all font-bold shadow-lg hover:shadow-red-500/25 border border-red-400/50"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                  >
-                    Edit Profile
+                >
+                  Edit Profile
                   </motion.button>
-                )}
+              )}
               </motion.div>
-            </form>
+          </form>
           </motion.div>
         </motion.div>
       </div>

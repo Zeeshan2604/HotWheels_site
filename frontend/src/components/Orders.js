@@ -82,19 +82,19 @@ const Orders = () => {
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="animate-pulse space-y-8">
+        <div className="animate-pulse space-y-8">
             <div className="h-12 bg-zinc-800/50 rounded-xl w-80 mb-8"></div>
-            {[...Array(3)].map((_, i) => (
+          {[...Array(3)].map((_, i) => (
               <div key={i} className="bg-zinc-900/50 backdrop-blur-sm rounded-2xl p-6 border border-zinc-700/50">
                 <div className="h-8 bg-zinc-800/50 rounded w-64 mb-4"></div>
                 <div className="h-4 bg-zinc-800/50 rounded w-80 mb-2"></div>
                 <div className="h-4 bg-zinc-800/50 rounded w-48"></div>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    );
+    </div>
+  );
   }
 
   if (error) {
@@ -121,8 +121,8 @@ const Orders = () => {
             </button>
           </div>
         </div>
-      </div>
-    );
+    </div>
+  );
   }
 
   return (
@@ -170,12 +170,12 @@ const Orders = () => {
             </div>
             <p className="text-xl text-gray-400 mb-6">No orders found</p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                to="/products" 
+            <Link 
+              to="/products" 
                 className="inline-block bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 px-8 py-4 rounded-full transition-all font-bold shadow-lg hover:shadow-red-500/25 border border-red-400/50"
-              >
-                Start Shopping
-              </Link>
+            >
+              Start Shopping
+            </Link>
             </motion.div>
           </motion.div>
         ) : (

@@ -259,7 +259,7 @@ const ProductList = () => {
                 >
                   <i className="fas fa-cart-plus mr-2"></i>Add to Cart
                 </button>
-              </div>
+          </div>
             </div>
             
             {/* Stock indicator */}
@@ -273,8 +273,8 @@ const ProductList = () => {
             {product.isFeatured && (
               <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg">
                 FEATURED
-              </div>
-            )}
+            </div>
+          )}
           </div>
         </div>
         
@@ -476,7 +476,7 @@ const ProductList = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.1),transparent_50%)]"></div>
           <div className="absolute top-20 left-20 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+          </div>
 
         {/* Filters and Products */}
         <section className="py-12 relative z-10 mt-20">
@@ -500,35 +500,35 @@ const ProductList = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="flex flex-wrap gap-6">
-                {/* Search */}
+              {/* Search */}
                 <div className="w-full md:w-96 relative">
                   <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                  <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-12 pr-6 py-4 bg-zinc-900/80 backdrop-blur-md rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 border border-zinc-700/50 hover:border-red-500/50 transition-colors"
-                  />
-                </div>
+                />
+              </div>
 
                 {/* Category Filter */}
-                <div className="relative w-full md:w-72">
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+              <div className="relative w-full md:w-72">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
                     className="appearance-none w-full px-6 py-4 bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-full text-white focus:outline-none focus:border-red-500 hover:border-red-500/50 transition-colors"
-                  >
-                    {categories.map(category => (
-                      <option key={category._id || category.id} value={category._id || category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
+                >
+                  {categories.map(category => (
+                    <option key={category._id || category.id} value={category._id || category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
                   <span className="absolute inset-y-0 right-6 flex items-center pointer-events-none">
-                    <i className="fa-solid fa-chevron-down text-gray-300"></i>
-                  </span>
-                </div>
+                  <i className="fa-solid fa-chevron-down text-gray-300"></i>
+                </span>
+              </div>
 
                 {/* Price Range */}
                 <div className="w-full md:w-64">
@@ -553,44 +553,44 @@ const ProductList = () => {
                 </div>
 
                 {/* Sort Dropdown */}
-                <div className="relative w-full md:w-64">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
+              <div className="relative w-full md:w-64">
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
                     className="appearance-none w-full px-6 py-4 bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-full text-white focus:outline-none focus:border-red-500 hover:border-red-500/50 transition-colors"
-                  >
-                    <option value="featured">Featured</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="newest">Newest First</option>
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="newest">Newest First</option>
                     <option value="name-asc">Name: A to Z</option>
                     <option value="name-desc">Name: Z to A</option>
-                  </select>
+                </select>
                   <span className="absolute inset-y-0 right-6 flex items-center pointer-events-none">
-                    <i className="fa-solid fa-chevron-down text-gray-300"></i>
-                  </span>
-                </div>
+                  <i className="fa-solid fa-chevron-down text-gray-300"></i>
+                </span>
+              </div>
 
                 {/* View Toggle */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setViewMode('grid')}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setViewMode('grid')}
                     className={`p-3 rounded-full transition-all ${
                       viewMode === 'grid' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'bg-zinc-900/80 backdrop-blur-md text-gray-400 hover:bg-zinc-800/80 border border-zinc-700/50'
-                    }`}
-                  >
-                    <i className="fas fa-th text-lg"></i>
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
+                  }`}
+                >
+                  <i className="fas fa-th text-lg"></i>
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
                     className={`p-3 rounded-full transition-all ${
                       viewMode === 'list' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'bg-zinc-900/80 backdrop-blur-md text-gray-400 hover:bg-zinc-800/80 border border-zinc-700/50'
-                    }`}
-                  >
-                    <i className="fas fa-list text-lg"></i>
-                  </button>
-                </div>
+                  }`}
+                >
+                  <i className="fas fa-list text-lg"></i>
+                </button>
               </div>
+            </div>
             </motion.div>
 
             {/* Products Grid */}
@@ -612,7 +612,7 @@ const ProductList = () => {
               >
                 <div className="w-24 h-24 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <i className="fas fa-search text-3xl text-red-400"></i>
-                </div>
+              </div>
                 <h3 className="text-2xl font-bold text-white mb-4">No Products Found</h3>
                 <p className="text-gray-400 mb-8">Try adjusting your search or filters</p>
                 <button
