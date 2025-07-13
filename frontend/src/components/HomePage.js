@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import { Model } from './Model';  // Import the Model component we just created
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
+import { API_URL, ASSETS_URL } from "../utils/getApiUrl";
 
 const HomePage = () => {
   const videoRef = useRef(null);
@@ -24,9 +25,9 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const featuredRes = await axios.get('http://localhost:3000/api/v1/products?isFeatured=true');
-        const collectionsRes = await axios.get('http://localhost:3000/api/v1/collections');
-        const latestRes = await axios.get('http://localhost:3000/api/v1/products?sort=-dateCreated&limit=3');
+        const featuredRes = await axios.get(`${API_URL}/api/v1/products?isFeatured=true`);
+        const collectionsRes = await axios.get(`${API_URL}/api/v1/collections`);
+        const latestRes = await axios.get(`${API_URL}/api/v1/products?sort=-dateCreated&limit=3`);
         
         setFeaturedProductsState(featuredRes.data);
         setCollectionsState(collectionsRes.data);
@@ -62,7 +63,7 @@ const HomePage = () => {
           className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
         >
           <source
-            src="http://localhost:3000/uploads/hot-wheels.mp4"
+            src={`${ASSETS_URL}/uploads/hot-wheels.mp4`}
             type="video/mp4"
           />
         </video>
@@ -199,7 +200,7 @@ const HomePage = () => {
                 >
                   <div className="aspect-square">
                     <img
-                      src={collection.image}
+                      src={`/hotwheels/${collection.image.replace(/^.*[\\\/]/, '')}`}
                       alt={collection.name}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
@@ -304,7 +305,7 @@ const HomePage = () => {
                 >
                   <div className="aspect-square overflow-hidden flex-shrink-0">
                     <img
-                      src={product.image}
+                      src={`/hotwheels/${product.image.replace(/^.*[\\\/]/, '')}`}
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -795,7 +796,7 @@ const HomePage = () => {
                   <div className="aspect-square bg-zinc-800 rounded-2xl p-6 md:p-8 flex items-center justify-center mb-4 group-hover:bg-zinc-700 transition-colors">
                     {product.image ? (
                       <img 
-                        src={product.image} 
+                        src={`/hotwheels/${product.image.replace(/^.*[\\\/]/, '')}`} 
                         alt={product.name}
                         className="w-full h-full object-contain group-hover:scale-110 transition-transform"
                       />

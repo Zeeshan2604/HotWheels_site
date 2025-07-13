@@ -44,7 +44,7 @@ function Model({ modelPath }) {
 }
 
 // Preload the model
-useGLTF.preload("http://localhost:3000/public/uploads/3dmodels/ferrari_f8_tributo.glb");
+useGLTF.preload(`${ASSETS_URL}/uploads/3dmodels/ferrari_f8_tributo.glb`);
 
 const GameView = () => {
   const { id } = useParams();

@@ -4,30 +4,38 @@ const router = Router();
 import multer, { diskStorage } from "multer";
 import { Types } from "mongoose";
 
-//get all categories
+// Enhanced get all collections with support for limit and sort query params
 router.get(`/`, async (req, res) => {
-  const category = await Category.find();
-
-  if (!category) {
+  let sort = {};
+  // Handle sorting
+  if (req.query.sort) {
+    const sortField = req.query.sort.startsWith('-') ? req.query.sort.substring(1) : req.query.sort;
+    const sortOrder = req.query.sort.startsWith('-') ? -1 : 1;
+    sort = { [sortField]: sortOrder };
+  }
+  // Handle limit
+  const limit = parseInt(req.query.limit) || 0;
+  try {
+    const collections = await Category.find()
+      .sort(sort)
+      .limit(limit);
+    res.send(collections);
+  } catch (error) {
     res.status(500).json({ success: false });
   }
-  res.send(category);
 });
 
-//get single category
-router.get("/:id", async (req, res) => {
-  if (!Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).send("Invalid ID");
+// Get single collection by id
+router.get('/:id', async (req, res) => {
+  try {
+    const collection = await Category.findById(req.params.id);
+    if (!collection) {
+      return res.status(404).json({ success: false, message: 'Collection not found' });
+    }
+    res.send(collection);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
   }
-
-  const category = await Category.findById(req.params.id);
-
-  if (!category) {
-    res
-      .status(500)
-      .json({ message: "The collection with the given Id was not found" });
-  }
-  res.status(200).send(category);
 });
 
 //////////////////////////////////////////////////////

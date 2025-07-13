@@ -96,7 +96,7 @@ router.post("/login", async (req, res) => {
           userId: user.id,
           isAdmin: user.isAdmin,
         },
-        process.env.secret,
+        process.env.JWT_SECRET,
         { expiresIn: "1d" }
       );
 
@@ -151,7 +151,7 @@ router.post(`/register`, async (req, res) => {
         userId: user.id,
         isAdmin: user.isAdmin,
       },
-      process.env.secret,
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 

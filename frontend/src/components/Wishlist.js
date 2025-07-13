@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useInView } from 'react-intersection-observer';
+import { API_URL } from "../utils/getApiUrl";
 
 const Wishlist = () => {
   const { user } = useAuth();
@@ -23,7 +24,7 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get("http://localhost:3000/api/v1/wishlist", {
+        const response = await axios.get(`${API_URL}/api/v1/wishlist`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setWishlistItems(response.data);
@@ -42,7 +43,7 @@ const Wishlist = () => {
   const handleRemoveFromWishlist = async (itemId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:3000/api/v1/wishlist/${itemId}`, {
+      await axios.delete(`${API_URL}/api/v1/wishlist/${itemId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -218,7 +219,7 @@ const Wishlist = () => {
                 >
                     <div className="aspect-square overflow-hidden flex-shrink-0">
                     <img 
-                      src={item.product?.image} 
+                      src={`/hotwheels/${(item.product?.image || '').replace(/^.*[\\\/]/, '')}`} 
                       alt={item.product?.name} 
                       className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                     />

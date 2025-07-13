@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
 import { useCart } from "../context/CartContext";
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { API_URL } from "../utils/getApiUrl";
 
 const ProductList = () => {
   const [searchParams] = useSearchParams();
@@ -27,7 +28,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/products");
+        const response = await axios.get(`${API_URL}/api/v1/products`);
         setProducts(response.data);
       } catch (err) {
         setError(err.message);
@@ -49,7 +50,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/collections");
+        const response = await axios.get(`${API_URL}/api/v1/collections`);
         setCategories([{ id: "all", name: "All Categories" }, ...response.data]);
       } catch (err) {
         console.error("Error fetching categories:", err);
@@ -153,7 +154,7 @@ const ProductList = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="aspect-square bg-zinc-800 rounded-2xl overflow-hidden">
                   <img
-                    src={quickViewProduct.image}
+                    src={`/hotwheels/${quickViewProduct.image.replace(/^.*[\\\/]/, '')}`}
                     alt={quickViewProduct.name}
                     className="w-full h-full object-cover"
                   />
@@ -238,7 +239,7 @@ const ProductList = () => {
         <div className={`${viewMode === 'list' ? 'w-1/4' : 'w-full'} overflow-hidden relative rounded-xl`}>
           <div className="aspect-square relative">
             <img
-              src={product.image}
+              src={`/hotwheels/${product.image.replace(/^.*[\\\/]/, '')}`}
               alt={product.name}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />

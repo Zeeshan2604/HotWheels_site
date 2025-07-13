@@ -1,7 +1,8 @@
 import { useGLTF } from "@react-three/drei";
+import { ASSETS_URL } from "../utils/getApiUrl";
 
 export function Model() {
-  const modelPath = "http://localhost:3000/public/uploads/3dmodels/ferrari_f8_tributo.glb";
+  const modelPath = `${ASSETS_URL}/uploads/3dmodels/ferrari_f8_tributo.glb`;
   const { scene } = useGLTF(modelPath);
 
   return (
@@ -15,4 +16,4 @@ export function Model() {
 }
 
 // Preload the model
-useGLTF.preload("http://localhost:3000/public/uploads/3dmodels/ferrari_f8_tributo.glb"); 
+useGLTF.preload(`${ASSETS_URL}/uploads/3dmodels/ferrari_f8_tributo.glb`); 

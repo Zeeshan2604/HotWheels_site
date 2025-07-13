@@ -102,7 +102,7 @@ export const register = async (req, res) => {
     // Generate token
     const token = sign(
       { userId: user.id, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET || process.env.secret,
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
@@ -178,7 +178,7 @@ export const login = async (req, res) => {
     // Generate token
     const token = sign(
       { userId: user.id, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET || process.env.secret,
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
@@ -234,7 +234,7 @@ export const googleAuth = async (req, res) => {
     // Generate token
     const token = sign(
       { userId: user.id, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET || process.env.secret,
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 

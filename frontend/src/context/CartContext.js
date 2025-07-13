@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext'; // Import AuthContext
+import { API_URL } from "../utils/getApiUrl";
 
 const CartContext = createContext();
 
@@ -17,7 +18,7 @@ export const CartProvider = ({ children }) => {
         try {
           const token = localStorage.getItem('token');
           setLoading(true);
-          const response = await axios.get("http://localhost:3000/api/v1/cart", {
+          const response = await axios.get(`${API_URL}/api/v1/cart`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           
@@ -41,7 +42,7 @@ export const CartProvider = ({ children }) => {
       if (user) {
         try {
           const token = localStorage.getItem('token');
-          const response = await axios.get("http://localhost:3000/api/v1/wishlist", {
+          const response = await axios.get(`${API_URL}/api/v1/wishlist`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           setWishlistItems(response.data);
@@ -61,7 +62,7 @@ export const CartProvider = ({ children }) => {
       }
 
       // Call your backend API to add/update the cart
-      const response = await axios.post("http://localhost:3000/api/v1/cart", {
+      const response = await axios.post(`${API_URL}/api/v1/cart`, {
         productId: product._id,
         quantity: product.quantity || 1
       }, {
@@ -88,7 +89,7 @@ export const CartProvider = ({ children }) => {
         throw new Error('Please login to remove items from cart');
       }
 
-      const response = await axios.delete(`http://localhost:3000/api/v1/cart/${productId}`, {
+      const response = await axios.delete(`${API_URL}/api/v1/cart/${productId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -115,7 +116,7 @@ export const CartProvider = ({ children }) => {
       }
 
       const response = await axios.put(
-        `http://localhost:3000/api/v1/cart/${productId}`,
+        `${API_URL}/api/v1/cart/${productId}`,
         { quantity },
         {
           headers: {
@@ -140,7 +141,7 @@ export const CartProvider = ({ children }) => {
         throw new Error('Please login to clear cart');
       }
 
-      await axios.delete("http://localhost:3000/api/v1/cart", {
+      await axios.delete(`${API_URL}/api/v1/cart`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -168,7 +169,7 @@ export const CartProvider = ({ children }) => {
         return { success: false };
       }
 
-      const response = await axios.post("http://localhost:3000/api/v1/wishlist", 
+      const response = await axios.post(`${API_URL}/api/v1/wishlist`, 
         { productId },
         { headers: { 'Authorization': `Bearer ${token}` } }
       );

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useAuth } from '../context/AuthContext';
+import { API_URL } from "../utils/getApiUrl";
 
 const Login = () => {
   const { user, login } = useAuth();
@@ -29,7 +29,7 @@ const Login = () => {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
+      const response = await axios.post(`${API_URL}/api/v1/auth/login`, {
         email,
         password
       });
@@ -43,29 +43,6 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleGoogleSuccess = async (credentialResponse) => {
-    setError("");
-    setLoading(true);
-    try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/google", {
-        credential: credentialResponse.credential
-      });
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
-        login(response.data.user);
-        navigate('/', { replace: true });
-      }
-    } catch (error) {
-      setError(error.response?.data?.message || "An error occurred during Google login");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleError = () => {
-    setError("Google login failed");
   };
 
   return (
@@ -94,26 +71,6 @@ const Login = () => {
             >
               Sign Up
             </Link>
-          </div>
-
-          {/* Google Login */}
-          <div className="mb-6">
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={handleGoogleError}
-              theme="filled_black"
-              size="large"
-              text="continue_with"
-              shape="pill"
-              width="100%"
-            />
-          </div>
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex-1 h-px bg-zinc-700"></div>
-            <span className="text-gray-400 text-sm">or continue with email</span>
-            <div className="flex-1 h-px bg-zinc-700"></div>
           </div>
 
           {/* Login Form */}

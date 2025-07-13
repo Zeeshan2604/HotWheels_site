@@ -5,7 +5,18 @@ const router = Router();
 import { isValidObjectId } from "mongoose";
 import multer, { diskStorage } from "multer";
 
-//get all the products list
+// Get featured products (e.g., /api/v1/products/get/featured/4)
+router.get('/get/featured/:count', async (req, res) => {
+  const count = req.params.count ? parseInt(req.params.count) : 0;
+  try {
+    const products = await Product.find({ isFeatured: true }).limit(count);
+    res.send(products);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Enhanced get all products with support for limit and sort query params
 router.get(`/`, async (req, res) => {
   let filter = {};
   let sort = {};
@@ -28,7 +39,8 @@ router.get(`/`, async (req, res) => {
   try {
     const productList = await Product.find(filter)
       .populate("category")
-      .sort(sort);
+      .sort(sort)
+      .limit(limit);
     res.send(productList);
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from "../utils/getApiUrl";
 
 const Checkout = () => {
   const { cartItems, clearCart } = useCart();
@@ -33,7 +34,7 @@ const Checkout = () => {
         totalPrice: cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0)
       };
 
-      const response = await axios.post('http://localhost:3000/api/v1/orders', orderData, {
+      const response = await axios.post(`${API_URL}/api/v1/orders`, orderData, {
         headers: { 
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'

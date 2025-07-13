@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider, useCart } from "./context/CartContext";
 import Navbar from "./components/Navbar";
@@ -23,56 +22,54 @@ function App() {
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <AuthProvider>
-        <CartProvider>
-          <Router>
-            <Navbar />
-            <Routes>
-              {/* Define route for the categories page */}
-              <Route path="/" element={<HomePage />} />
-              <Route path="/collections" element={<CategoriesList />} />
-              <Route path="/collection/:id" element={<SingleCollection />} />
-              <Route path="/products" element={<ProductList />} />
-              <Route path="/product/:id" element={<SingleProduct />} />
-              <Route path="/game" element={<GameView />} />
-              <Route path="/game/list" element={<GameView />} />
-              <Route path="/game/:id" element={<GameView />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route 
-                path="/profile" 
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route 
-                path="/orders" 
-                element={
-                  <ProtectedRoute>
-                    <Orders />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/checkout" 
-                element={
-                  <ProtectedRoute>
-                    <Checkout />
-                  </ProtectedRoute>
-                } 
-              />
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            {/* Define route for the categories page */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/collections" element={<CategoriesList />} />
+            <Route path="/collection/:id" element={<SingleCollection />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/product/:id" element={<SingleProduct />} />
+            <Route path="/game" element={<GameView />} />
+            <Route path="/game/list" element={<GameView />} />
+            <Route path="/game/:id" element={<GameView />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route 
+              path="/profile" 
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route 
+              path="/orders" 
+              element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/checkout" 
+              element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              } 
+            />
 
-              {/* You can add more routes here as needed */}
-            </Routes>
-          </Router>
-        </CartProvider>
-      </AuthProvider>
-    </GoogleOAuthProvider>
+            {/* You can add more routes here as needed */}
+          </Routes>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
