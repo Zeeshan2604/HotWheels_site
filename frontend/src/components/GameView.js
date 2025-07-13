@@ -44,7 +44,7 @@ function Model({ modelPath }) {
 }
 
 // Preload the model
-useGLTF.preload(`${ASSETS_URL}/uploads/3dmodels/ferrari_f8_tributo.glb`);
+useGLTF.preload(`/uploads/3dmodels/ferrari_f8_tributo.glb`);
 
 const GameView = () => {
   const { id } = useParams();
@@ -345,7 +345,7 @@ const GameView = () => {
                             <ambientLight intensity={0.6} />
                             <directionalLight position={[5, 5, 5]} intensity={1.2} />
                             <Stage environment="dawn" intensity={0.6} adjustCamera={false}>
-                              <Model modelPath={`${ASSETS_URL}/uploads/3dmodels/${product.model3D}`} />
+                              <Model modelPath={`/uploads/3dmodels/${product.model3D}`} />
                             </Stage>
                             <OrbitControls
                               autoRotate
@@ -560,7 +560,7 @@ const GameView = () => {
                     {/* Main Model Display */}
                     {product?.model3D && (
                       <Model 
-                        modelPath={`${ASSETS_URL}/uploads/3dmodels/${product.model3D}`}
+                        modelPath={`/uploads/3dmodels/${product.model3D}`}
                       />
                     )}
 

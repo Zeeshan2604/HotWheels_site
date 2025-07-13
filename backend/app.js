@@ -35,7 +35,10 @@ if (!secret) {
 
 // CORS Configuration
 app.use(cors({
-    origin: ['http://localhost:3002'],
+    origin: [
+        'http://localhost:3002',
+        'https://hot-wheels-site.vercel.app'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
