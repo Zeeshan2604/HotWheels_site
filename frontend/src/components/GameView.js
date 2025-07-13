@@ -14,6 +14,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
+import { API_URL, ASSETS_URL } from "../utils/getApiUrl";
 
 function Model({ modelPath }) {
   const { scene } = useGLTF(modelPath);
@@ -217,12 +218,12 @@ const GameView = () => {
       try {
         if (id && id !== 'list') {
           // Fetch specific product for 3D view
-          const response = await axios.get(`http://localhost:3000/api/v1/products/${id}`);
+          const response = await axios.get(`${API_URL}/api/v1/products/${id}`);
           setProduct(response.data);
           setShowList(false);
         } else {
           // Fetch all products with 3D models for list view
-          const response = await axios.get('http://localhost:3000/api/v1/products');
+          const response = await axios.get(`${API_URL}/api/v1/products`);
           const productsWith3D = response.data.filter(p => p.model3D);
           setProducts(productsWith3D);
           setShowList(true);
@@ -236,7 +237,7 @@ const GameView = () => {
     
     if(id === 'random') {
       // Fetch random product with 3D model
-      axios.get('http://localhost:3000/api/v1/products?has3DModel=true')
+      axios.get(`${API_URL}/api/v1/products?has3DModel=true`)
         .then(res => {
           const validProducts = res.data.filter(p => p.model3D);
           if(validProducts.length > 0) {
@@ -344,7 +345,7 @@ const GameView = () => {
                             <ambientLight intensity={0.6} />
                             <directionalLight position={[5, 5, 5]} intensity={1.2} />
                             <Stage environment="dawn" intensity={0.6} adjustCamera={false}>
-                              <Model modelPath={`http://localhost:3000/public/uploads/3dmodels/${product.model3D}`} />
+                              <Model modelPath={`${ASSETS_URL}/uploads/3dmodels/${product.model3D}`} />
                             </Stage>
                             <OrbitControls
                               autoRotate
@@ -559,7 +560,7 @@ const GameView = () => {
                     {/* Main Model Display */}
                     {product?.model3D && (
                       <Model 
-                        modelPath={`http://localhost:3000/public/uploads/3dmodels/${product.model3D}`}
+                        modelPath={`${ASSETS_URL}/uploads/3dmodels/${product.model3D}`}
                       />
                     )}
 
