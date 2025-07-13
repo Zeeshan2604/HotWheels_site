@@ -14,7 +14,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
-import { API_URL, ASSETS_URL } from "../utils/getApiUrl";
+import { API_URL } from "../utils/getApiUrl";
 
 function Model({ modelPath }) {
   const { scene } = useGLTF(modelPath);

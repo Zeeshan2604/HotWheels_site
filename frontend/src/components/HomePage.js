@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import { Model } from './Model';  // Import the Model component we just created
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
-import { API_URL, ASSETS_URL } from "../utils/getApiUrl";
+import { API_URL } from "../utils/getApiUrl";
 
 const HomePage = () => {
   const videoRef = useRef(null);
@@ -63,7 +63,7 @@ const HomePage = () => {
           className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
         >
           <source
-            src={`${ASSETS_URL}/uploads/hot-wheels.mp4`}
+            src={"/uploads/hot-wheels.mp4"}
             type="video/mp4"
           />
         </video>
