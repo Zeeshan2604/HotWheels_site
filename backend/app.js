@@ -67,7 +67,7 @@ app.use('/public/uploads', express.static('public/uploads'));
 app.use('/hotwheels', express.static(path.join(__dirname, 'public', 'hotwheels')));
 
 // API Routes
-const api = process.env.API_URL;
+const api = process.env.API_URL || '/api/v1';
 app.use(authJwt());
 app.use(`${api}/collections`, collectionsRoutes);
 app.use(`${api}/products`, productsRoutes);
