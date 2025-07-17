@@ -37,6 +37,24 @@ if (!secret) {
 app.use(express.json());
 app.use(morgan("tiny"));
 
+// CORS Configuration (works for both dev and prod)
+const allowedOrigins = [
+  'https://hot-wheels-site.vercel.app',
+  'http://localhost:3002',
+  'http://localhost:3000'
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 // Serve static files - make both paths point to the same directory
 app.use('/uploads', express.static(__dirname + "/public/uploads"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
@@ -75,12 +93,6 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 })
 .catch((err) => {
     console.log(err);
-});
-
-// Start Server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
 });
 
 export default app;
