@@ -10,56 +10,56 @@ const collections = [
     name: "Sports Cars",
     slug: "sports-cars",
     description: "High-performance sports cars from legendary manufacturers",
-    image: "http://localhost:3000/hotwheels/Sports_car.jpg",
+    image: "/hotwheels/Sports_car.webp",
     tags: ["Speed", "Performance", "Luxury"]
   },
   {
     name: "Off-Road",
     slug: "off-road",
     description: "Rugged vehicles built for adventure and tough terrain",
-    image: "http://localhost:3000/hotwheels/Off_road.jpg",
+    image: "/hotwheels/Off_road.webp",
     tags: ["Adventure", "4x4", "Terrain"]
   },
   {
     name: "Classics",
     slug: "classics",
     description: "Timeless vintage cars that defined automotive history",
-    image: "http://localhost:3000/hotwheels/Classics.jpg",
+    image: "/hotwheels/Classics.webp",
     tags: ["Vintage", "History", "Collectible"]
   },
   {
     name: "Limited Edition",
     slug: "limited-edition",
     description: "Rare and exclusive models for serious collectors",
-    image: "http://localhost:3000/hotwheels/Limited_edition.jpg",
+    image: "/hotwheels/Limited_edition.webp",
     tags: ["Rare", "Exclusive", "Premium"]
   },
   {
     name: "Movie Cars",
     slug: "movie-cars",
     description: "Iconic vehicles from famous movies and TV shows",
-    image: "http://localhost:3000/hotwheels/Movie_cars.jpg",
+    image: "/hotwheels/Movie_cars.webp",
     tags: ["Entertainment", "Cinema", "Famous"]
   },
   {
     name: "Racing Legends",
     slug: "racing-legends",
     description: "Championship-winning race cars from different eras",
-    image: "http://localhost:3000/hotwheels/H1.jpg",
+    image: "/hotwheels/H1.webp",
     tags: ["Motorsport", "Competition", "Speed"]
   },
   {
     name: "Muscle Cars",
     slug: "muscle-cars",
     description: "Powerful American muscle cars from the golden era",
-    image: "http://localhost:3000/hotwheels/Muscle_car.jpg",
+    image: "/hotwheels/Muscle_car.webp",
     tags: ["Power", "American", "Classic"]
   },
   {
     name: "JDM Tuners",
     slug: "jdm-tuners",
     description: "Japanese performance cars and tuner specials",
-    image: "http://localhost:3000/hotwheels/JDM_tuners.jpg",
+    image: "/hotwheels/JDM_tuners.webp",
     tags: ["Japanese", "Tuner", "Performance"]
   }
 ];
@@ -73,11 +73,11 @@ const products = [
     countInStock: 15,
     isFeatured: true,
     collectionName: "Sports Cars",
-    image: "http://localhost:3000/hotwheels/p1.webp",
+    image: "/hotwheels/p1.webp",
     images: [
-      "http://localhost:3000/hotwheels/p1.webp",
-      "http://localhost:3000/hotwheels/p2.jpg",
-      "http://localhost:3000/hotwheels/p3.jpg"
+      "/hotwheels/p1.webp",
+      "/hotwheels/p2.webp",
+      "/hotwheels/p3.webp"
     ],
     tags: ["Porsche", "Track", "Performance"]
   },
@@ -88,12 +88,12 @@ const products = [
     countInStock: 10,
     isFeatured: true,
     collectionName: "Sports Cars",
-    image: "http://localhost:3000/hotwheels/f1.jpg",
+    image: "/hotwheels/f1.webp",
     images: [
-      "http://localhost:3000/hotwheels/f1.jpg",
-      "http://localhost:3000/hotwheels/f2.jpg",
-      "http://localhost:3000/hotwheels/f3.jpg",
-      "http://localhost:3000/hotwheels/f4.jpg"
+      "/hotwheels/f1.webp",
+      "/hotwheels/f2.webp",
+      "/hotwheels/f3.webp",
+      "/hotwheels/f4.webp"
     ],
     tags: ["Ferrari", "V8", "Italian"]
   },
@@ -105,12 +105,12 @@ const products = [
     price: 18.99,
     countInStock: 20,
     collectionName: "Off-Road",
-    image: "http://localhost:3000/hotwheels/l1.jpg",
+    image: "/hotwheels/l1.webp",
     images: [
-      "http://localhost:3000/hotwheels/l1.jpg",
-      "http://localhost:3000/hotwheels/l2.jpg",
-      "http://localhost:3000/hotwheels/l3.jpg",
-      "http://localhost:3000/hotwheels/l4.jpg"
+      "/hotwheels/l1.webp",
+      "/hotwheels/l2.webp",
+      "/hotwheels/l3.webp",
+      "/hotwheels/l4.webp"
     ],
     tags: ["British", "4x4", "Adventure"]
   },
@@ -122,11 +122,11 @@ const products = [
     price: 19.99,
     countInStock: 25,
     collectionName: "Off-Road",
-    image: "http://localhost:3000/hotwheels/fb1.jpg",
+    image: "/hotwheels/fb1.webp",
     images: [
-      "http://localhost:3000/hotwheels/fb1.jpg",
-      "http://localhost:3000/hotwheels/fb2.jpg",
-      "http://localhost:3000/hotwheels/fb3.jpg"
+      "/hotwheels/fb1.webp",
+      "/hotwheels/fb2.webp",
+      "/hotwheels/fb3.webp"
     ],
     tags: ["American", "4x4", "Classic"]
   },
@@ -138,11 +138,11 @@ const products = [
     price: 21.99,
     countInStock: 5,
     collectionName: "Classics",
-    image: "http://localhost:3000/hotwheels/m1.jpg",
+    image: "/hotwheels/m1.webp",
     images: [
-      "http://localhost:3000/hotwheels/m1.jpg",
-      "http://localhost:3000/hotwheels/m2.jpg",
-      "http://localhost:3000/hotwheels/m3.jpg"
+      "/hotwheels/m1.webp",
+      "/hotwheels/m2.webp",
+      "/hotwheels/m3.webp"
     ],
     tags: ["German", "Vintage", "Luxury"]
   },
@@ -154,12 +154,12 @@ const products = [
     price: 27.99,
     countInStock: 3,
     collectionName: "Limited Edition",
-    image: "http://localhost:3000/hotwheels/bg1.jpg",
+    image: "/hotwheels/bg1.webp",
     images: [
-      "http://localhost:3000/hotwheels/bg1.jpg",
-      "http://localhost:3000/hotwheels/bg2.jpg",
-      "http://localhost:3000/hotwheels/bg3.jpg",
-      "http://localhost:3000/hotwheels/bg4.jpg"
+      "/hotwheels/bg1.webp",
+      "/hotwheels/bg2.webp",
+      "/hotwheels/bg3.webp",
+      "/hotwheels/bg4.webp"
     ],
     tags: ["Hypercar", "Limited", "Exclusive"]
   },
@@ -171,12 +171,12 @@ const products = [
     price: 24.99,
     countInStock: 7,
     collectionName: "Movie Cars",
-    image: "http://localhost:3000/hotwheels/a1.jpg",
+    image: "/hotwheels/a1.webp",
     images: [
-      "http://localhost:3000/hotwheels/a1.jpg",
-      "http://localhost:3000/hotwheels/a2.jpg",
-      "http://localhost:3000/hotwheels/a3.jpg",
-      "http://localhost:3000/hotwheels/a4.jpg"
+      "/hotwheels/a1.webp",
+      "/hotwheels/a2.webp",
+      "/hotwheels/a3.webp",
+      "/hotwheels/a4.webp"
     ],
     tags: ["British", "Cinema", "Spy"]
   },
@@ -188,11 +188,11 @@ const products = [
     price: 24.99,
     countInStock: 6,
     collectionName: "Racing Legends",
-    image: "http://localhost:3000/hotwheels/mk.jpg",
+    image: "/hotwheels/mk.webp",
     images: [
-      "http://localhost:3000/hotwheels/mk.jpg",
-      "http://localhost:3000/hotwheels/mk1.jpg",
-      "http://localhost:3000/hotwheels/mk2.jpg"
+      "/hotwheels/mk.webp",
+      "/hotwheels/mk1.webp",
+      "/hotwheels/mk2.webp"
     ],
     tags: ["McLaren", "Le Mans", "Race Car"]
   },
@@ -204,11 +204,11 @@ const products = [
     price: 17.99,
     countInStock: 12,
     collectionName: "Muscle Cars",
-    image: "http://localhost:3000/hotwheels/d1.jpg",
+    image: "/hotwheels/d1.webp",
     images: [
-      "http://localhost:3000/hotwheels/d1.jpg",
-      "http://localhost:3000/hotwheels/d2.jpg",
-      "http://localhost:3000/hotwheels/d3.jpg"
+      "/hotwheels/d1.webp",
+      "/hotwheels/d2.webp",
+      "/hotwheels/d3.webp"
     ],
     tags: ["American", "V8", "Classic"]
   },
@@ -220,11 +220,11 @@ const products = [
     price: 21.99,
     countInStock: 15,
     collectionName: "JDM Tuners",
-    image: "http://localhost:3000/hotwheels/n1.jpg",
+    image: "/hotwheels/n1.webp",
     images: [
-      "http://localhost:3000/hotwheels/n1.jpg",
-      "http://localhost:3000/hotwheels/n2.jpg",
-      "http://localhost:3000/hotwheels/n3.jpg"
+      "/hotwheels/n1.webp",
+      "/hotwheels/n2.webp",
+      "/hotwheels/n3.webp"
     ],
     tags: ["Japanese", "Turbo", "Legend"]
   }
@@ -242,25 +242,23 @@ const seedDatabase = async () => {
     // await Product.deleteMany({});
     // console.log('Cleared existing data');
 
-    // Insert collections
-    const savedCollections = await Category.insertMany(collections);
-    console.log('Collections added');
-
-    // Create products with references to collections
-    const productsWithCategories = products.map(product => {
-      const collection = savedCollections.find(c => 
-        c.name === product.collectionName
+    // Update collections
+    for (const col of collections) {
+      await Category.updateOne(
+        { slug: col.slug },
+        { $set: { ...col } }
       );
-      return {
-        ...product,
-        category: collection._id
-      };
-    });
+    }
 
-    await Product.insertMany(productsWithCategories);
-    console.log('Products added');
+    // Update products
+    for (const prod of products) {
+      await Product.updateOne(
+        { name: prod.name },
+        { $set: { ...prod } }
+      );
+    }
 
-    // Update model3D fields
+    // Update model3D fields (already correct in your code)
     const modelMappings = [
       { name: "1969 Dodge Charger", model: "1969_dodge_charger.glb" },
       { name: "Aston Martin DB5", model: "aston_martin.glb" },
