@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useAuth } from '../context/AuthContext';
+import { API_URL } from "../utils/getApiUrl";
 
 function getPasswordStrength(password) {
   let score = 0;
@@ -64,7 +65,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/register", {
+      const response = await axios.post(`${API_URL}/api/v1/auth/register`, {
         name: formData.name,
         email: formData.email,
         password: formData.password
@@ -89,7 +90,7 @@ const Register = () => {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/google", {
+      const response = await axios.post(`${API_URL}/api/v1/auth/google`, {
         credential: credentialResponse.credential
       });
       if (response.data.success) {

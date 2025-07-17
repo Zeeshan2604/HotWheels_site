@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { API_URL } from "../utils/getApiUrl";
 
 const Profile = () => {
   const { user, login } = useAuth();
@@ -28,7 +29,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:3000/api/v1/users/${user.id}`, {
+        const response = await axios.get(`${API_URL}/api/v1/users/${user.id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -73,7 +74,7 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:3000/api/v1/users/${user.id}`,
+        `${API_URL}/api/v1/users/${user.id}`,
         formData,
         {
           headers: { 

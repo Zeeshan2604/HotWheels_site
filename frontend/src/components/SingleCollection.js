@@ -4,6 +4,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
+import { API_URL } from "../utils/getApiUrl";
 
 const SingleCollection = () => {
   const { id } = useParams();
@@ -24,8 +25,8 @@ const SingleCollection = () => {
     const fetchCollectionAndProducts = async () => {
       try {
         const [collectionRes, productsRes] = await Promise.all([
-          axios.get(`http://localhost:3000/api/v1/collections/${id}`),
-          axios.get(`http://localhost:3000/api/v1/products`, {
+          axios.get(`${API_URL}/api/v1/collections/${id}`),
+          axios.get(`${API_URL}/api/v1/products`, {
             params: {
               category: id
             }

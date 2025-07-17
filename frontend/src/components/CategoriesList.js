@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from "../utils/getApiUrl";
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
@@ -17,7 +18,7 @@ const CategoriesList = () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/collections"
+        `${API_URL}/api/v1/collections`
       );
       setCategories(response.data);
     } catch (err) {
