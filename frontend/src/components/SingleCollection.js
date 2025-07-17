@@ -4,7 +4,6 @@ import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
-import { API_URL } from "../utils/getApiUrl";
 
 const SingleCollection = () => {
   const { id } = useParams();
@@ -25,8 +24,8 @@ const SingleCollection = () => {
     const fetchCollectionAndProducts = async () => {
       try {
         const [collectionRes, productsRes] = await Promise.all([
-          axios.get(`${API_URL}/api/v1/collections/${id}`),
-          axios.get(`${API_URL}/api/v1/products`, {
+          axios.get(`http://localhost:3000/api/v1/collections/${id}`),
+          axios.get(`http://localhost:3000/api/v1/products`, {
             params: {
               category: id
             }
@@ -179,7 +178,7 @@ const SingleCollection = () => {
         {/* Collection Image Background */}
         <div className="absolute inset-0">
           <img
-            src={`/hotwheels/${(collection.image || '').replace(/^.*[\\\/]/, '')}`}
+            src={collection.image}
             alt={collection.name}
             className="w-full h-full object-cover opacity-10"
           />
@@ -372,7 +371,7 @@ const SingleCollection = () => {
                         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                         <img
                           alt={product.name}
-                          src={`/hotwheels/${(product.images?.[0] || '').replace(/^.*[\\\/]/, '')}`}
+                          src={product.images?.[0]}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         {/* Featured Badge */}
@@ -405,7 +404,7 @@ const SingleCollection = () => {
                         <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
                           <img
                             alt={product.name}
-                            src={`/hotwheels/${(product.images?.[0] || '').replace(/^.*[\\\/]/, '')}`}
+                            src={product.images?.[0]}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                           />
                         </div>
@@ -470,7 +469,7 @@ const SingleCollection = () => {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="aspect-square rounded-xl overflow-hidden">
                   <img
-                    src={`/hotwheels/${(selectedProduct.image || '').replace(/^.*[\\\/]/, '')}`}
+                    src={selectedProduct.image}
                     alt={selectedProduct.name}
                     className="w-full h-full object-cover"
                   />

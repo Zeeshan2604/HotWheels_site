@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from "../utils/getApiUrl";
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
@@ -18,7 +17,7 @@ const CategoriesList = () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        `${API_URL}/api/v1/collections`
+        "http://localhost:3000/api/v1/collections"
       );
       setCategories(response.data);
     } catch (err) {
@@ -218,7 +217,7 @@ const CategoriesList = () => {
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                   <img
                     alt={category.name}
-                    src={`/hotwheels/${category.image.replace(/^.*[\\\/]/, '')}`}
+                    src={category.image}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   {/* Featured Badge */}
@@ -251,7 +250,7 @@ const CategoriesList = () => {
                   <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
                     <img
                       alt={category.name}
-                      src={`/hotwheels/${category.image.replace(/^.*[\\\/]/, '')}`}
+                      src={category.image}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>

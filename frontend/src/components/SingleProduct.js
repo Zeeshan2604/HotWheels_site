@@ -4,7 +4,6 @@ import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from './Footer';
-import { API_URL } from "../utils/getApiUrl";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -25,12 +24,12 @@ const SingleProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/v1/products/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/v1/products/${id}`);
         setProduct(response.data);
         
         // Fetch related products
         if (response.data.category?._id) {
-          const relatedResponse = await axios.get(`${API_URL}/api/v1/products?category=${response.data.category._id}&limit=4`);
+          const relatedResponse = await axios.get(`http://localhost:3000/api/v1/products?category=${response.data.category._id}&limit=4`);
           setRelatedProducts(relatedResponse.data.filter(p => p._id !== response.data._id));
         }
       } catch (err) {
@@ -92,7 +91,7 @@ const SingleProduct = () => {
           transition={{ type: "spring", stiffness: 300 }}
         >
           <motion.img
-            src={`/hotwheels/${(product.images[selectedImage] || '').replace(/^.*[\\\/]/, '')}`}
+            src={images[selectedImage]}
             alt="Main product"
             className={`w-full h-full object-contain transition-transform duration-300 ${
               isZoomed ? 'scale-150' : 'scale-100'
@@ -162,7 +161,7 @@ const SingleProduct = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <img
-                src={`/hotwheels/${(image || '').replace(/^.*[\\\/]/, '')}`}
+                src={image}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover"
               />
@@ -208,7 +207,7 @@ const SingleProduct = () => {
             
             <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 rounded-3xl overflow-hidden border border-zinc-700/50">
               <img
-                src={`/hotwheels/${(product.images[selectedImage] || '').replace(/^.*[\\\/]/, '')}`}
+                src={product.images[selectedImage]}
                 alt="Product"
                 className="w-full h-full object-contain"
               />
@@ -282,7 +281,7 @@ const SingleProduct = () => {
             >
               <div className="aspect-square overflow-hidden">
                 <img
-                  src={`/hotwheels/${(relatedProduct.image || '').replace(/^.*[\\\/]/, '')}`}
+                  src={relatedProduct.image}
                   alt={relatedProduct.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />

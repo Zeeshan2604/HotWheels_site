@@ -35,10 +35,7 @@ if (!secret) {
 
 // CORS Configuration
 app.use(cors({
-    origin: [
-        'http://localhost:3002',
-        'https://hot-wheels-site.vercel.app'
-    ],
+    origin: ['http://localhost:3002'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -60,7 +57,7 @@ app.use('/public/uploads', express.static('public/uploads'));
 app.use('/hotwheels', express.static(path.join(__dirname, 'public', 'hotwheels')));
 
 // API Routes
-const api = process.env.API_URL || '/api/v1';
+const api = process.env.API_URL;
 app.use(authJwt());
 app.use(`${api}/collections`, collectionsRoutes);
 app.use(`${api}/products`, productsRoutes);
@@ -86,6 +83,12 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 })
 .catch((err) => {
     console.log(err);
+});
+
+// Start Server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
 export default app;

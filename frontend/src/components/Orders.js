@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
-import { API_URL } from "../utils/getApiUrl";
 
 const Orders = () => {
   const { user } = useAuth();
@@ -22,7 +21,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${API_URL}/api/v1/orders/user`, {
+        const response = await axios.get('http://localhost:3000/api/v1/orders/user', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrders(response.data);
@@ -61,7 +60,7 @@ const Orders = () => {
   const cancelOrder = async (orderId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`${API_URL}/orders/${orderId}`, 
+      await axios.put(`http://localhost:3000/api/v1/orders/${orderId}`, 
         { status: 'cancelled' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
