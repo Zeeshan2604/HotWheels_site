@@ -103,6 +103,7 @@ const SingleProduct = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
+            loading="lazy"
           />
           
           {/* Gradient overlay */}
@@ -165,6 +166,7 @@ const SingleProduct = () => {
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
               
               {/* Overlay for multiple images */}
@@ -211,6 +213,7 @@ const SingleProduct = () => {
                 src={product.images[selectedImage]}
                 alt="Product"
                 className="w-full h-full object-contain"
+                loading="lazy"
               />
               
               {product.images.length > 1 && (
@@ -285,6 +288,7 @@ const SingleProduct = () => {
                   src={relatedProduct.image}
                   alt={relatedProduct.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>

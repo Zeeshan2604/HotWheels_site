@@ -231,6 +231,7 @@ const Orders = () => {
                                   src={item.product?.image} 
                                   alt={item.product?.name}
                                   className="w-16 h-16 object-cover rounded-lg"
+                                  loading="lazy"
                                 />
                                 <div>
                                   <p className="font-medium text-white">{item.product?.name}</p>

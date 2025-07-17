@@ -182,6 +182,7 @@ const SingleCollection = () => {
             src={collection.image}
             alt={collection.name}
             className="w-full h-full object-cover opacity-10"
+            loading="lazy"
           />
         </div>
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.1),transparent_50%)]"></div>
@@ -374,6 +375,7 @@ const SingleCollection = () => {
                           alt={product.name}
                           src={product.images?.[0]}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          loading="lazy"
                         />
                         {/* Featured Badge */}
                         {product.isFeatured && (
@@ -407,6 +409,7 @@ const SingleCollection = () => {
                             alt={product.name}
                             src={product.images?.[0]}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy"
                           />
                         </div>
                         <div className="flex-1 p-6">
@@ -473,6 +476,7 @@ const SingleCollection = () => {
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <div className="space-y-4">

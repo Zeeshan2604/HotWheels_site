@@ -220,6 +220,7 @@ const CategoriesList = () => {
                     alt={category.name}
                     src={category.image}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
                   />
                   {/* Featured Badge */}
                   {category.isFeatured && (
@@ -253,6 +254,7 @@ const CategoriesList = () => {
                       alt={category.name}
                       src={category.image}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex-1 p-6">

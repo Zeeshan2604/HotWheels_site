@@ -115,6 +115,7 @@ const Cart = () => {
                                   src={item.product.image}
                                   alt={item.product.name}
                                   className="w-full sm:w-32 h-32 flex-shrink-0 rounded"
+                                  loading="lazy"
                                 />
                               )}
                               <div className="flex-1 min-w-0">
@@ -189,6 +190,7 @@ const Cart = () => {
                       src={item.product.image}
                       alt={item.product.name}
                       className="w-24 h-24 object-cover rounded"
+                      loading="lazy"
                     />
                     <div>
                       <h3 className="font-medium truncate">{item.product.name}</h3>

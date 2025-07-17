@@ -203,6 +203,7 @@ const HomePage = () => {
                       src={collection.image}
                       alt={collection.name}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
@@ -308,6 +309,7 @@ const HomePage = () => {
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
@@ -799,6 +801,7 @@ const HomePage = () => {
                         src={product.image} 
                         alt={product.name}
                         className="w-full h-full object-contain group-hover:scale-110 transition-transform"
+                        loading="lazy"
                       />
                     ) : (
                       <i className="fa-solid fa-car text-4xl md:text-6xl text-red-500 group-hover:scale-110 transition-transform"></i>
@@ -847,7 +850,8 @@ const HomePage = () => {
             scale: [1, 1.2, 1],
             opacity: [0.15, 0.25, 0.15]
           }}
-          transition={{ duration: 4, repeat: Infinity }}
+          transition={{ duration: 2.5, repeat: Infinity }}
+          style={{ willChange: 'transform, opacity' }}
         ></motion.div>
         <motion.div 
           className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
@@ -855,7 +859,8 @@ const HomePage = () => {
             scale: [1, 1.3, 1],
             opacity: [0.1, 0.15, 0.1]
           }}
-          transition={{ duration: 5, repeat: Infinity, delay: 1 }}
+          transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+          style={{ willChange: 'transform, opacity' }}
         ></motion.div>
         <motion.div 
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
@@ -863,16 +868,18 @@ const HomePage = () => {
             scale: [1, 1.1, 1],
             opacity: [0.1, 0.2, 0.1]
           }}
-          transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+          transition={{ duration: 2.5, repeat: Infinity, delay: 2 }}
+          style={{ willChange: 'transform, opacity' }}
         ></motion.div>
         {/* Additional light-red blurry balls for premium effect */}
         <motion.div 
           className="absolute top-1/4 right-1/3 w-60 h-60 bg-pink-500/20 rounded-full blur-3xl"
           animate={{ 
             scale: [1, 1.15, 1],
-            opacity: [0.12, 0.22, 0.12]
+            opacity: [0.13, 0.23, 0.13]
           }}
-          transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
+          transition={{ duration: 2.5, repeat: Infinity, delay: 1.5 }}
+          style={{ willChange: 'transform, opacity' }}
         ></motion.div>
         <motion.div 
           className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-red-400/20 rounded-full blur-3xl"
@@ -880,7 +887,8 @@ const HomePage = () => {
             scale: [1, 1.18, 1],
             opacity: [0.13, 0.23, 0.13]
           }}
-          transition={{ duration: 8, repeat: Infinity, delay: 2.5 }}
+          transition={{ duration: 3, repeat: Infinity, delay: 2.5 }}
+          style={{ willChange: 'transform, opacity' }}
         ></motion.div>
         <motion.div 
           className="absolute top-10 right-1/4 w-40 h-40 bg-red-300/20 rounded-full blur-2xl"
@@ -888,7 +896,8 @@ const HomePage = () => {
             scale: [1, 1.1, 1],
             opacity: [0.10, 0.18, 0.10]
           }}
-          transition={{ duration: 6, repeat: Infinity, delay: 3 }}
+          transition={{ duration: 2.5, repeat: Infinity, delay: 3 }}
+          style={{ willChange: 'transform, opacity' }}
         ></motion.div>
       </div>
 
