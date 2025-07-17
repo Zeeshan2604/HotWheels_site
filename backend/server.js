@@ -3,14 +3,15 @@ import cors from "cors";
 
 const allowedOrigins = [
   'https://hot-wheels-site.vercel.app',
-  'http://localhost:3002'
+  'http://localhost:3002',
+  'http://localhost:3000'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
     // allow requests with no origin (like mobile apps, curl, etc.)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
       return callback(new Error('Not allowed by CORS'));
@@ -19,6 +20,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.listen(3001, () => {
-  console.log('Server is running on http://localhost:3001');
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 }); 

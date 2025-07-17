@@ -33,14 +33,6 @@ if (!secret) {
     throw new Error('JWT secret is not defined in environment variables');
 }
 
-// CORS Configuration
-app.use(cors({
-    origin: ['http://localhost:3002'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
-
 // Middleware
 app.use(express.json());
 app.use(morgan("tiny"));
