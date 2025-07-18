@@ -231,179 +231,78 @@ const ProductList = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
-        className={`bg-zinc-900/80 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-300 group 
-          hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)] hover:translate-y-[-8px] cursor-pointer border border-zinc-700/50 hover:border-red-500/50 ${
-          viewMode === 'list' ? 'flex gap-8 p-6' : ''
-        }`}
+        className={`group relative overflow-hidden rounded-2xl cursor-pointer shadow-xl hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)] border border-zinc-700/50 hover:border-red-500/50 transition-all duration-300 ${viewMode === 'grid' ? 'aspect-square bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 flex flex-col justify-end' : 'flex flex-row items-center bg-zinc-900/80 hover:bg-zinc-800/80 min-h-[96px] sm:min-h-[120px] mb-2'}`}
         onClick={() => navigate(`/product/${product._id}`)}
       >
-        <div className={`${viewMode === 'list' ? 'w-1/4' : 'w-full'} overflow-hidden relative rounded-xl`}>
-          <div className="aspect-square relative">
+        {viewMode === 'grid' ? (
+          <>
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 absolute inset-0 z-0"
               loading="lazy"
+              style={{ objectPosition: 'center' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-              <div className="flex gap-2">
-                <button 
-                  onClick={(e) => handleQuickView(product, e)}
-                  className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white border border-white/20 hover:bg-white/20 transition-all transform hover:scale-105"
-                >
-                  <i className="fas fa-eye mr-2"></i>Quick View
-                </button>
-                <button 
+            <div className="relative z-10 flex flex-col justify-end h-full p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors line-clamp-2">{product.name}</h3>
+                {product.isFeatured && (
+                  <span className="px-2 py-1 bg-red-500 text-white text-xs rounded-full font-bold">Featured</span>
+                )}
+              </div>
+              <p className="text-gray-300 mb-2 opacity-0 group-hover:opacity-100 transition-all text-xs line-clamp-2">{product.description}</p>
+              <div className="flex items-center justify-between mt-auto">
+                <span className="text-xl font-bold text-white">${product.price}</span>
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onAddToCart(product);
                   }}
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 px-4 py-2 rounded-full text-white transition-all transform hover:scale-105 shadow-lg hover:shadow-red-500/25"
+                  className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 rounded-full text-white text-xs font-bold hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-red-500/25"
                 >
-                  <i className="fas fa-cart-plus mr-2"></i>Add to Cart
-                </button>
-          </div>
-            </div>
-            
-            {/* Stock indicator */}
-            {product.countInStock <= 5 && (
-              <div className="absolute top-3 left-3 bg-yellow-500 text-black text-xs px-2 py-1 rounded-full font-bold">
-                Low Stock
-              </div>
-            )}
-            
-            {/* Featured Badge */}
-            {product.isFeatured && (
-              <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg">
-                FEATURED
-            </div>
-          )}
-          </div>
-        </div>
-        
-        <div className={`${viewMode === 'list' ? 'flex-1 flex flex-col' : 'p-6'}`}>
-          {viewMode === 'list' ? (
-            <>
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-2xl font-bold text-white group-hover:text-red-500 transition-colors">
-                      {product.name}
-                    </h3>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
-                    <span>{product.category?.name}</span>
-                    <span>•</span>
-                    <span>Stock: {product.countInStock}</span>
-                  </div>
-                </div>
-                <button className="text-red-500 hover:text-red-400 p-2 hover:bg-red-500/10 rounded-full transition-colors">
-                  <i className="far fa-heart text-xl"></i>
+                  Add to Cart
                 </button>
               </div>
-
-              <p className="text-gray-400 mb-6 line-clamp-2">{product.description}</p>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {product.tags?.slice(0, 3).map(tag => (
-                  <span key={tag} className="px-3 py-1 bg-zinc-800 rounded-full text-sm text-gray-300 transition-all duration-300 hover:bg-zinc-700 hover:text-white">
-                    {tag}
-                  </span>
-                ))}
-                {product.tags?.length > 3 && (
-                  <span className="px-3 py-1 bg-zinc-800 rounded-full text-sm text-gray-400">
-                    +{product.tags.length - 3} more
-                  </span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 mr-3">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+            <div className="flex-1 flex flex-col justify-center p-2 sm:p-4">
+              <div className="flex items-center justify-between mb-1 sm:mb-2">
+                <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-red-400 transition-colors line-clamp-2">{product.name}</h3>
+                {product.isFeatured && (
+                  <span className="px-2 py-1 bg-red-500 text-white text-xs rounded-full font-bold">Featured</span>
                 )}
               </div>
-
-              <div className="product-card-footer mt-auto">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-white group-hover:text-red-500 transition-colors">
-                      ${product.price}
-                    </span>
-                    {product.oldPrice && (
-                      <span className="text-lg text-gray-400 line-through">
-                        ${product.oldPrice}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <i className="fas fa-star text-yellow-500"></i>
-                      <span>{product.rating || '4.5'}</span>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddToCart(product);
-                      }}
-                      className="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 rounded-full text-white transition-all duration-300 
-                        hover:from-red-600 hover:to-red-700 hover:shadow-[0_0_15px_rgba(239,68,68,0.3)] 
-                        group-hover:scale-105 active:scale-95 shadow-lg hover:shadow-red-500/25"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-red-500 transition-colors line-clamp-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">{product.description}</p>
-                </div>
-                <button className="text-red-500 hover:text-red-400">
-                  <i className="far fa-heart text-xl transition-transform group-hover:scale-110"></i>
-                </button>
-              </div>
-              
-              <div className="flex flex-wrap gap-2 mb-4">
+              <p className="text-gray-400 mb-1 sm:mb-2 text-xs sm:text-base line-clamp-2">{product.description}</p>
+              <div className="flex flex-wrap gap-2 mb-2">
                 {product.tags?.slice(0, 2).map(tag => (
-                  <span key={tag} className="px-3 py-1 bg-zinc-800 rounded-full text-sm text-gray-300 transition-all duration-300 hover:bg-zinc-700 hover:text-white">
-                    {tag}
-                  </span>
+                  <span key={tag} className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full whitespace-nowrap">{tag}</span>
                 ))}
-                {product.tags?.length > 2 && (
-                  <span className="px-3 py-1 bg-zinc-800 rounded-full text-sm text-gray-400">
-                    +{product.tags.length - 2}
-                  </span>
-                )}
               </div>
-              
-              <div className="product-card-footer mt-auto">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-2xl font-bold text-white group-hover:text-red-500 transition-colors">
-                      ${product.price}
-                    </span>
-                    {product.oldPrice && (
-                      <span className="ml-2 text-sm text-gray-400 line-through">
-                        ${product.oldPrice}
-                      </span>
-                    )}
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onAddToCart(product);
-                    }}
-                    className="px-6 py-2 bg-gradient-to-r from-red-500 to-red-600 rounded-full text-white transition-all duration-300 
-                      hover:from-red-600 hover:to-red-700 hover:shadow-[0_0_15px_rgba(239,68,68,0.3)] 
-                      group-hover:scale-105 active:scale-95 shadow-lg hover:shadow-red-500/25"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
+              <div className="flex items-center justify-between mt-auto">
+                <span className="text-lg font-bold text-white">${product.price}</span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onAddToCart(product);
+                  }}
+                  className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 rounded-full text-white text-xs font-bold hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-red-500/25"
+                >
+                  Add to Cart
+                </button>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </motion.div>
     );
   };
@@ -575,31 +474,27 @@ const ProductList = () => {
               </div>
 
                 {/* View Toggle */}
-              <div className="flex gap-2">
+              <div className="flex w-full sm:w-auto justify-center bg-zinc-900/80 rounded-full p-1 border border-zinc-700/50 mb-6">
                 <button
                   onClick={() => setViewMode('grid')}
-                    className={`p-3 rounded-full transition-all ${
-                      viewMode === 'grid' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'bg-zinc-900/80 backdrop-blur-md text-gray-400 hover:bg-zinc-800/80 border border-zinc-700/50'
-                  }`}
+                  className={`flex-1 px-4 py-2 rounded-full transition-all text-xs sm:text-base ${viewMode === 'grid' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'text-gray-400 hover:text-white'}`}
+                  aria-label="Grid view"
                 >
-                  <i className="fas fa-th text-lg"></i>
+                  <i className="fas fa-th"></i>
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                    className={`p-3 rounded-full transition-all ${
-                      viewMode === 'list' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'bg-zinc-900/80 backdrop-blur-md text-gray-400 hover:bg-zinc-800/80 border border-zinc-700/50'
-                  }`}
+                  className={`flex-1 px-4 py-2 rounded-full transition-all text-xs sm:text-base ${viewMode === 'list' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'text-gray-400 hover:text-white'}`}
+                  aria-label="List view"
                 >
-                  <i className="fas fa-list text-lg"></i>
+                  <i className="fas fa-list"></i>
                 </button>
               </div>
             </div>
             </motion.div>
 
             {/* Products Grid */}
-            <div className={`grid gap-6 ${
-              viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'
-            }`}>
+            <div className={`gap-6 ${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'flex flex-col'}`}>
               {sortedProducts.map((product) => (
                 <ProductCard key={product._id} product={product} onAddToCart={handleAddToCart} />
               ))}

@@ -760,7 +760,7 @@ const SingleProduct = () => {
 
       {/* Toast Message */}
       <AnimatePresence>
-      {toastMessage && (
+        {toastMessage && (
           <motion.div 
             className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full shadow-lg z-50 border border-green-400/50 backdrop-blur-sm"
             initial={{ opacity: 0, y: -20, scale: 0.8 }}

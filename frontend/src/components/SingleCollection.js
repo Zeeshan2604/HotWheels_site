@@ -253,21 +253,21 @@ const SingleCollection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
-                className="flex items-center justify-center gap-8 mt-4"
+                className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 mt-4"
               >
-                <div className="flex items-center gap-3 px-4 py-2 bg-zinc-900/60 backdrop-blur-md rounded-full border border-zinc-700/50">
+                <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/70 backdrop-blur-md rounded-full border border-zinc-700/50 w-full sm:w-auto justify-center">
                   <i className="fas fa-box text-red-400"></i>
-                  <span className="text-white font-bold">{products.length} Products</span>
+                  <span className="text-white font-bold text-sm sm:text-base">{products.length} Products</span>
                 </div>
-                <div className="flex items-center gap-3 px-4 py-2 bg-zinc-900/60 backdrop-blur-md rounded-full border border-zinc-700/50">
+                <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/70 backdrop-blur-md rounded-full border border-zinc-700/50 w-full sm:w-auto justify-center">
                   <i className="fas fa-tag text-red-400"></i>
-                  <span className="text-white font-bold">
+                  <span className="text-white font-bold text-sm sm:text-base">
                     {products.length > 0 ? `$${Math.min(...products.map(p => p.price))}+` : 'N/A'}
                   </span>
                 </div>
-                <div className="flex items-center gap-3 px-4 py-2 bg-zinc-900/60 backdrop-blur-md rounded-full border border-zinc-700/50">
+                <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/70 backdrop-blur-md rounded-full border border-zinc-700/50 w-full sm:w-auto justify-center">
                   <i className="fas fa-warehouse text-red-400"></i>
-                  <span className="text-white font-bold">
+                  <span className="text-white font-bold text-sm sm:text-base">
                     {products.length > 0 ? products.reduce((acc, p) => acc + (p.countInStock || 0), 0) : 0} Stock
                   </span>
                 </div>
@@ -277,80 +277,80 @@ const SingleCollection = () => {
         </section>
         {/* Products Section */}
         <section className="py-8">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-2 sm:px-4">
             {/* Section Header with Filters */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
             >
-                              {/* Filters and Controls */}
-                <div className="flex flex-col lg:flex-row gap-4 justify-center items-center mb-6">
-                {/* Sort Dropdown */}
-                <div className="relative">
-                  <select
-                    value={sortBy}
-                    onChange={e => setSortBy(e.target.value)}
-                    className="px-6 py-3 bg-zinc-900/80 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none cursor-pointer backdrop-blur-md border border-zinc-700/50 hover:border-red-500/50 transition-colors"
-                  >
-                    <option value="featured">Featured</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="name">Name</option>
-                    <option value="newest">Newest</option>
-                  </select>
-                  <i className="fas fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
-                </div>
-                {/* Price Range Filter */}
-                <div className="flex items-center gap-3 bg-zinc-900/80 rounded-full px-6 py-3 backdrop-blur-md border border-zinc-700/50 hover:border-red-500/50 transition-colors">
-                  <span className="text-gray-400 font-bold">Price:</span>
-                  <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    value={priceRange[0]}
-                    onChange={e => setPriceRange([+e.target.value, priceRange[1]])}
-                    className="accent-red-500 w-24"
-                  />
-                  <span className="text-white font-bold">${priceRange[0]}</span>
-                  <span className="text-gray-400">-</span>
-                  <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    value={priceRange[1]}
-                    onChange={e => setPriceRange([priceRange[0], +e.target.value])}
-                    className="accent-red-500 w-24"
-                  />
-                  <span className="text-white font-bold">${priceRange[1]}</span>
+              {/* Filters and Controls */}
+              {/* --- Filter/Sort Bar Section --- */}
+              <div className="h-2 sm:h-4"></div>
+              <div className="sticky top-[64px] z-20 shadow-md px-2 sm:px-0 py-3 sm:py-0 mb-4 sm:mb-6">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-2xl mx-auto">
+                  {/* Sort Dropdown */}
+                  <div className="relative w-full">
+                    <select
+                      value={sortBy}
+                      onChange={e => setSortBy(e.target.value)}
+                      className="w-full px-4 py-3 bg-zinc-900/80 rounded-full text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none cursor-pointer border border-zinc-700/50 hover:border-red-500/50 transition-colors sm:min-w-[160px] lg:min-w-[200px]"
+                    >
+                      <option value="featured">Featured</option>
+                      <option value="price-low">Price: Low to High</option>
+                      <option value="price-high">Price: High to Low</option>
+                      <option value="name">Name</option>
+                      <option value="newest">Newest</option>
+                    </select>
+                    <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs sm:text-base"></i>
                   </div>
-                {/* View Mode Toggle */}
-                <div className="flex bg-zinc-900/80 rounded-full p-1 backdrop-blur-md border border-zinc-700/50">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`px-4 py-2 rounded-full transition-all ${
-                      viewMode === 'grid' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    <i className="fas fa-th"></i>
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`px-4 py-2 rounded-full transition-all ${
-                      viewMode === 'list' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    <i className="fas fa-list"></i>
-                  </button>
+                  <div className="hidden sm:block w-px bg-zinc-700/50 mx-2"></div>
+                  {/* Price Range Filter */}
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-3 w-full bg-zinc-900/80 rounded-full px-4 py-2 border border-zinc-700/50 mt-2">
+                    <span className="text-gray-400 font-bold text-xs sm:text-sm">Price:</span>
+                    <div className="flex items-center gap-2 w-full">
+                      <input
+                        type="range"
+                        min="0"
+                        max="1000"
+                        value={priceRange[0]}
+                        onChange={e => setPriceRange([+e.target.value, priceRange[1]])}
+                        className="accent-red-500 w-20 sm:w-24 h-2 rounded-lg"
+                      />
+                      <span className="text-white font-bold text-xs sm:text-base">${priceRange[0]}</span>
+                      <span className="text-gray-400 text-xs sm:text-base">-</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="1000"
+                        value={priceRange[1]}
+                        onChange={e => setPriceRange([priceRange[0], +e.target.value])}
+                        className="accent-red-500 w-20 sm:w-24 h-2 rounded-lg"
+                      />
+                      <span className="text-white font-bold text-xs sm:text-base">${priceRange[1]}</span>
+                    </div>
+                  </div>
+                  <div className="hidden sm:block w-px bg-zinc-700/50 mx-2"></div>
+                  {/* View Mode Toggle */}
+                  <div className="flex w-full sm:w-auto justify-center bg-zinc-900/80 rounded-full p-1 border border-zinc-700/50">
+                    <button
+                      onClick={() => setViewMode('grid')}
+                      className={`flex-1 px-4 py-2 rounded-full transition-all text-xs sm:text-base ${viewMode === 'grid' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'text-gray-400 hover:text-white'}`}
+                    >
+                      <i className="fas fa-th"></i>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('list')}
+                      className={`flex-1 px-4 py-2 rounded-full transition-all text-xs sm:text-base ${viewMode === 'list' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' : 'text-gray-400 hover:text-white'}`}
+                    >
+                      <i className="fas fa-list"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>
             {/* Products Grid/List */}
-            <div className={`gap-6 ${
-              viewMode === 'grid'
-                ? 'grid md:grid-cols-2 lg:grid-cols-4'
-                : 'space-y-4'
-            }`}>
+            <div className={`gap-4 sm:gap-6 ${viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'flex flex-col'}`}>
               {sortedAndFilteredProducts.length === 0 ? (
                 <NoProducts />
               ) : (
@@ -361,11 +361,7 @@ const SingleCollection = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     whileHover={{ y: -10, scale: 1.02 }}
-                    className={`group relative overflow-hidden rounded-2xl cursor-pointer shadow-xl hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)] border border-zinc-700/50 hover:border-red-500/50 transition-all duration-300 ${
-                      viewMode === 'grid'
-                        ? 'aspect-square bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 backdrop-blur-md'
-                        : 'flex items-center bg-zinc-900/80 hover:bg-zinc-800/80 backdrop-blur-md'
-                    }`}
+                    className={`group relative overflow-hidden rounded-2xl cursor-pointer shadow-xl hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)] border border-zinc-700/50 hover:border-red-500/50 transition-all duration-300 ${viewMode === 'grid' ? 'bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 backdrop-blur-md' : 'flex flex-row items-center bg-zinc-900/80 hover:bg-zinc-800/80 backdrop-blur-md min-h-[96px] sm:min-h-[120px] mb-2'}`}
                     onClick={() => navigate(`/product/${product._id}`)}
                   >
                     {viewMode === 'grid' ? (
@@ -374,37 +370,29 @@ const SingleCollection = () => {
                         <img
                           alt={product.name}
                           src={product.images?.[0]}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 min-h-[180px] sm:min-h-0"
                           loading="lazy"
+                          style={{ aspectRatio: '1/1', maxHeight: '100%' }}
                         />
                         {/* Featured Badge */}
                         {product.isFeatured && (
-                          <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                          <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-gradient-to-r from-red-500 to-orange-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold shadow-lg">
                             FEATURED
                           </div>
                         )}
-                        <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                          <div className="flex items-center justify-between mb-2">
-                            <h3 className="text-2xl font-bold text-white group-hover:text-red-400 transition-colors">{product.name}</h3>
-                            {product.tags && product.tags.length > 0 && (
-                              <span className="px-2 py-1 bg-red-500 text-white text-xs rounded-full">
-                                {product.tags[0]}
-                              </span>
-                            )}
+                        <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent group/card">
+                          <h3 className="text-lg sm:text-2xl font-bold text-white group-hover/card:text-red-400 transition-colors line-clamp-2 mb-0 z-10 relative transition-all duration-300 group-hover/card:-translate-y-1">{product.name}</h3>
+                          <div className="transition-all duration-300 overflow-hidden max-h-0 opacity-0 group-hover/card:max-h-[4.5rem] group-hover/card:opacity-100">
+                            <p className="text-xs sm:text-base text-gray-300 line-clamp-2 sm:line-clamp-3 mt-1">{product.description || 'Explore our exclusive premium model'}</p>
                           </div>
-                          <p className="text-gray-300 mb-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">
-                            {product.description || 'Explore our exclusive premium model'}
-                          </p>
-                          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                            <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold">
-                              View Product <i className="fa-solid fa-arrow-right"></i>
-                            </button>
-          </div>
-        </div>
+                          <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-xs sm:text-base mt-2 z-10 relative transition-all duration-300 group-hover/card:-translate-y-1">
+                            View Product <i className="fa-solid fa-arrow-right"></i>
+                          </button>
+                        </div>
                       </>
                     ) : (
                       <>
-                        <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+                        <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 mr-3">
                           <img
                             alt={product.name}
                             src={product.images?.[0]}
@@ -412,23 +400,19 @@ const SingleCollection = () => {
                             loading="lazy"
                           />
                         </div>
-                        <div className="flex-1 p-6">
-                          <div className="flex items-center justify-between mb-2">
-                            <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors">{product.name}</h3>
+                        <div className="flex-1 flex flex-col justify-center p-2 sm:p-4">
+                          <div className="flex items-center justify-between mb-1 sm:mb-2">
+                            <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-red-400 transition-colors line-clamp-2">{product.name}</h3>
                             {product.tags && product.tags.length > 0 && (
-                              <div className="flex gap-2">
+                              <div className="flex gap-1 sm:gap-2 overflow-x-auto max-w-[100px] sm:max-w-none">
                                 {product.tags.slice(0, 2).map(tag => (
-                                  <span key={tag} className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full">
-                                    {tag}
-                                  </span>
+                                  <span key={tag} className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full whitespace-nowrap">{tag}</span>
                                 ))}
                               </div>
                             )}
                           </div>
-                          <p className="text-gray-400 mb-3">
-                            {product.description || 'Explore our exclusive premium model'}
-                          </p>
-                          <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold">
+                          <p className="text-gray-400 mb-1 sm:mb-2 text-xs sm:text-base line-clamp-2 sm:line-clamp-3">{product.description || 'Explore our exclusive premium model'}</p>
+                          <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-xs sm:text-base mt-auto">
                             View Product <i className="fa-solid fa-arrow-right"></i>
                           </button>
                         </div>

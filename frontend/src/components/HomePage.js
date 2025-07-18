@@ -10,10 +10,12 @@ import { Model } from './Model';  // Import the Model component we just created
 import { useCart } from "../context/CartContext";
 import axios from 'axios';
 import { API_URL } from "../utils/getApiUrl";
+import Hyperspeed from './Hyperspeed';
 
 const HomePage = () => {
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const { addToCart } = useCart();
   // const { latestProducts, collections, featuredProducts } = useProducts();
   const [toastMessage, setToastMessage] = useState("");
@@ -39,6 +41,15 @@ const HomePage = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleMute = (e) => {
     e.preventDefault();
     if (videoRef.current) {
@@ -54,20 +65,26 @@ const HomePage = () => {
         id="navbar_hero"
         className="relative min-h-screen bg-gradient-to-br from-black via-zinc-900 to-black text-white overflow-hidden"
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          playsInline
-          muted={isMuted}
-          className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
-        >
-          <source
-            src="/uploads/hot-wheels.mp4"
-            type="video/mp4"
-          />
-        </video>
-
+        {!isMobile ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            playsInline
+            muted={isMuted}
+            className="absolute top-0 left-0 w-full h-full object-cover filter brightness-50"
+          >
+            <source
+              src="/uploads/hot-wheels.mp4"
+              type="video/mp4"
+            />
+          </video>
+        ) : (
+          <div className="absolute top-0 left-0 w-full h-full z-0">
+            <Hyperspeed />
+            <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10" />
+          </div>
+        )}
         {/* Hero Section Content */}
         <div className="relative h-screen flex items-center justify-center">
           <div className="container mx-auto px-4 pt-16 relative z-10">
@@ -131,21 +148,23 @@ const HomePage = () => {
             <div className="h-1 bg-gradient-to-r from-red-500 to-red-600 rounded-full animate-pulse"></div>
           </motion.div>
         </div>
-
-        {/* Mute Button */}
-        <motion.button
-          type="button"
-          className="absolute bottom-8 right-8 bg-black/50 backdrop-blur-sm hover:bg-black/80 text-white p-3 rounded-full transition-all cursor-pointer border border-white/20"
-          onClick={handleMute}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <i
-            className={`fa-solid ${
-              isMuted ? "fa-volume-mute" : "fa-volume-up"
-            } text-2xl`}
-          />
-        </motion.button>
+        {/* Mute Button (desktop only) */}
+        {!isMobile && (
+          <motion.button
+            type="button"
+            className="absolute bottom-8 right-8 bg-black/50 backdrop-blur-sm hover:bg-black/80 text-white p-3 rounded-full transition-all cursor-pointer border border-white/20"
+            onClick={handleMute}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <i
+              className={`fa-solid ${
+                isMuted ? "fa-volume-mute" : "fa-volume-up"
+              } text-2xl`}
+            />
+          </motion.button>
+        )}
+        
       </section>
     );
   };
