@@ -7,33 +7,6 @@ import Footer from './Footer';
 import { API_URL } from "../utils/getApiUrl";
 
 
-function Model({ modelPath }) {
-  const { scene } = useGLTF(modelPath);
-  
-  useEffect(() => {
-    if (scene) {
-      // Reset position and scale
-      scene.position.set(0, 0, 0);
-      scene.scale.set(1, 1, 1);
-      scene.rotation.set(0, 0, 0);
-      
-      // Make sure all materials are visible
-      scene.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-          if (child.material) {
-            child.material.transparent = false;
-            child.material.opacity = 1;
-          }
-        }
-      });
-    }
-  }, [scene]);
-  
-  return scene ? <primitive object={scene} /> : null;
-}
-
 const Game3DViewer = lazy(() => import('./GameView3D'));
 const GameList3D = lazy(() => import('./GameList3D'));
 
