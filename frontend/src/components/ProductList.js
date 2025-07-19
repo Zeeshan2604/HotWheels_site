@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from 'react-intersection-observer';
@@ -59,34 +59,38 @@ const ProductList = () => {
     fetchCategories();
   }, []);
 
-  const filteredProducts = products.filter(product => {
+  // Memoize filteredProducts
+  const filteredProducts = useMemo(() => products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || product.category?._id === selectedCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesSearch && matchesCategory && matchesPrice;
-  });
+  }), [products, searchQuery, selectedCategory, priceRange]);
 
-  // Sort products
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    switch (sortBy) {
-      case 'price-low':
-        return a.price - b.price;
-      case 'price-high':
-        return b.price - a.price;
-      case 'newest':
-        return new Date(b.dateCreated) - new Date(a.dateCreated);
-      case 'name-asc':
-        return a.name.localeCompare(b.name);
-      case 'name-desc':
-        return b.name.localeCompare(a.name);
-      default:
-        return b.isFeatured ? 1 : -1;
-    }
-  });
+  // Memoize sortedProducts
+  const sortedProducts = useMemo(() => {
+    return [...filteredProducts].sort((a, b) => {
+      switch (sortBy) {
+        case 'price-low':
+          return a.price - b.price;
+        case 'price-high':
+          return b.price - a.price;
+        case 'newest':
+          return new Date(b.dateCreated) - new Date(a.dateCreated);
+        case 'name-asc':
+          return a.name.localeCompare(b.name);
+        case 'name-desc':
+          return b.name.localeCompare(a.name);
+        default:
+          return b.isFeatured ? 1 : -1;
+      }
+    });
+  }, [filteredProducts, sortBy]);
 
-  const handleAddToCart = async (product) => {
+  // Memoize handleAddToCart
+  const handleAddToCart = useCallback(async (product) => {
     const result = await addToCart(product);
     if (!result.success) {
       navigate('/login'); // Redirect to login if not logged in
@@ -94,7 +98,7 @@ const ProductList = () => {
       setToastMessage(result.message); // Show success message
       setTimeout(() => setToastMessage(""), 3000);
     }
-  };
+  }, [addToCart, navigate]);
 
   const handleQuickView = (product, e) => {
     e.stopPropagation();
@@ -219,7 +223,8 @@ const ProductList = () => {
     </AnimatePresence>
   );
 
-  const ProductCard = ({ product, onAddToCart }) => {
+  // Memoize ProductCard
+  const ProductCard = React.memo(({ product, onAddToCart }) => {
     const [ref, inView] = useInView({
       triggerOnce: true,
       threshold: 0.1
@@ -305,7 +310,7 @@ const ProductList = () => {
         )}
       </motion.div>
     );
-  };
+  });
 
   if (loading) {
     return (

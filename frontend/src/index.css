@@ -16,4 +16,13 @@
 
 .product-card {
   @apply flex flex-col h-full;
+}
+
+@keyframes fadeInSlide {
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-slide {
+  opacity: 0;
+  transform: translateY(2rem); /* matches Tailwind's translate-y-8 */
+  animation: fadeInSlide 0.8s forwards;
 } 

@@ -100,7 +100,7 @@ export const CartProvider = ({ children }) => {
         setCartItems(response.data.items || []);
       } else {
         // Fallback to local filtering if server doesn't return updated items
-        setCartItems(cartItems.filter(item => item.product._id !== productId));
+      setCartItems(cartItems.filter(item => item.product._id !== productId));
       }
     } catch (err) {
       console.error("Error removing product from cart:", err);

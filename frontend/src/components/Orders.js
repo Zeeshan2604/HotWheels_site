@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -72,6 +72,9 @@ const Orders = () => {
       setError('Failed to cancel order');
     }
   };
+
+  // Memoize orders
+  const visibleOrders = useMemo(() => orders, [orders]);
 
   if (loading) {
     return (
@@ -181,7 +184,7 @@ const Orders = () => {
           </motion.div>
         ) : (
           <div className="space-y-6">
-            {orders.map((order, index) => (
+            {visibleOrders.map((order, index) => (
               <motion.div 
                 key={order._id}
                 initial={{ opacity: 0, y: 20 }}

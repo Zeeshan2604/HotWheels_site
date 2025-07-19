@@ -1,14 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { 
-  OrbitControls, 
-  useGLTF, 
-  Environment, 
-  Stage,
-  ContactShadows,
-  Sparkles,
-  Html
-} from "@react-three/drei";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
@@ -44,8 +34,8 @@ function Model({ modelPath }) {
   return scene ? <primitive object={scene} /> : null;
 }
 
-// Preload the model
-useGLTF.preload("/uploads/3dmodels/ferrari_f8_tributo.glb");
+const Game3DViewer = lazy(() => import('./GameView3D'));
+const GameList3D = lazy(() => import('./GameList3D'));
 
 const GameView = () => {
   const { id } = useParams();
@@ -220,7 +210,7 @@ const GameView = () => {
         if (id && id !== 'list') {
           // Fetch specific product for 3D view
           const response = await axios.get(`${API_URL}/api/v1/products/${id}`);
-          setProduct(response.data);
+        setProduct(response.data);
           setShowList(false);
         } else {
           // Fetch all products with 3D models for list view
@@ -319,90 +309,9 @@ const GameView = () => {
                 </button>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {products.map((product, index) => (
-                  <motion.div
-                    key={product._id}
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ y: -10, scale: 1.02 }}
-                    className="group cursor-pointer"
-                    onClick={() => navigate(`/game/${product._id}`)}
-                  >
-                    <div className="relative bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-2xl overflow-hidden border border-zinc-700/50 hover:border-red-500/50 transition-all duration-300 shadow-xl hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)]">
-                      {/* 3D Preview */}
-                      <div className="aspect-square relative bg-gradient-to-br from-zinc-800 to-zinc-900">
-                        <Canvas
-                          camera={{ 
-                            position: [5, 2, 5],
-                            fov: 50,
-                            near: 0.1,
-                            far: 1000
-                          }}
-                          className="w-full h-full"
-                        >
-                          <Suspense fallback={null}>
-                            <ambientLight intensity={0.6} />
-                            <directionalLight position={[5, 5, 5]} intensity={1.2} />
-                            <Stage environment="dawn" intensity={0.6} adjustCamera={false}>
-                              <Model modelPath={`/uploads/3dmodels/${product.model3D}`} />
-                            </Stage>
-                            <OrbitControls
-                              autoRotate
-                              autoRotateSpeed={1.5}
-                              enableZoom={false}
-                              enablePan={false}
-                              minPolarAngle={Math.PI / 4}
-                              maxPolarAngle={Math.PI / 2}
-                              target={[0, 0, 0]}
-                              minDistance={3}
-                              maxDistance={8}
-                            />
-                          </Suspense>
-                        </Canvas>
-                        
-                        {/* Featured Badge */}
-                        {product.isFeatured && (
-                          <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs md:text-sm font-bold shadow-lg">
-                            FEATURED
-                          </div>
-                        )}
-                        
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center p-6 md:p-8">
-                          <button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 px-6 md:px-8 py-3 rounded-full text-white transition-all font-bold text-base md:text-lg shadow-lg hover:shadow-red-500/25 transform hover:scale-105">
-                            Explore in 3D
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Product Info */}
-                      <div className="p-6 md:p-8">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
-                          {product.name}
-                        </h3>
-                        <p className="text-gray-400 text-sm md:text-base mb-6 line-clamp-2 leading-relaxed">
-                          {product.description}
-                        </p>
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
-                              ${product.price}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2 md:gap-3 text-gray-400">
-                            <div className="p-2 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-lg">
-                              <i className="fas fa-cube text-red-500 text-base md:text-lg"></i>
-                            </div>
-                            <span className="text-xs md:text-sm font-medium">3D Model</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="w-12 h-12 border-4 border-red-500/20 border-t-red-500 rounded-full animate-spin mx-auto"></div></div>}>
+                <GameList3D products={products} navigate={navigate} />
+              </Suspense>
             </>
           )}
         </div>
@@ -501,92 +410,10 @@ const GameView = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* 3D Viewer Section */}
-          <motion.div 
-            className="relative"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-          <div className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 rounded-2xl border border-zinc-700/50 backdrop-blur-md overflow-hidden">
-            <div className="aspect-square relative">
-              {/* 3D View Controls */}
-              <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                <button
-                  onClick={() => setAutoRotate(!autoRotate)}
-                  className={`p-2 rounded-lg transition-all duration-300 backdrop-blur-md border ${
-                    autoRotate 
-                      ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25 border-red-400/50' 
-                      : 'bg-zinc-900/80 text-gray-400 hover:bg-zinc-800/80 border-zinc-700/50'
-                  }`}
-                >
-                  <i className="fas fa-sync-alt text-sm"></i>
-                </button>
-              </div>
-              
-              <Canvas camera={{ position: [0, 2, 8], fov: 45, near: 0.1, far: 1000 }}>
-                  <Suspense fallback={
-                    <Html center>
-                      <div className="text-center">
-                        <div className="w-12 h-12 border-4 border-red-500/20 border-t-red-500 rounded-full animate-spin mx-auto mb-4"></div>
-                        <div className="text-white text-sm font-medium">Loading model...</div>
-                      </div>
-                    </Html>
-                  }>
-                    {/* Scene Lighting */}
-                    <ambientLight intensity={0.8} />
-                    <directionalLight
-                      position={[5, 10, 7]}
-                      intensity={1.8}
-                      castShadow
-                      shadow-mapSize-width={2048}
-                      shadow-mapSize-height={2048}
-                    />
-
-                    {/* Flying Particles */}
-                    <Sparkles
-                      count={100}
-                      size={3}
-                      speed={0.3}
-                      opacity={0.6}
-                      color="#ef4444"
-                      scale={20}
-                      noise={0.8}
-                      position={[0, 0, 0]}
-                      depth={10}
-                      fade={false}
-                      spawnRate={0.3}
-                    />
-
-                    {/* Main Model Display */}
-                    {product?.model3D && (
-                      <Model 
-                        modelPath={`/uploads/3dmodels/${product.model3D}`}
-                      />
-                    )}
-
-                    {/* Camera Controls */}
-                    <OrbitControls 
-                      enablePan={true}
-                      enableZoom={true}
-                      enableRotate={true}
-                      autoRotate={autoRotate}
-                      autoRotateSpeed={0.5}
-                      maxDistance={9}
-                      minDistance={1}
-                      minPolarAngle={Math.PI/6}
-                      maxPolarAngle={Math.PI/2}
-                      target={[0, 0, 0]}
-                      dampingFactor={0.1}
-                    />
-
-                    {/* Environment Background */}
-                    <Environment preset="sunset" background blur={0.2} />
-                  </Suspense>
-                </Canvas>
-              </div>
-            </div>
-          </motion.div>
+      {/* 3D Viewer Section */}
+          <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="w-12 h-12 border-4 border-red-500/20 border-t-red-500 rounded-full animate-spin mx-auto"></div></div>}>
+            <Game3DViewer product={product} autoRotate={autoRotate} setAutoRotate={setAutoRotate} />
+          </Suspense>
 
           {/* Product Details Section */}
           <motion.div 
@@ -601,26 +428,26 @@ const GameView = () => {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center">
                     <i className="fas fa-crown text-white text-sm"></i>
-                  </div>
-                  <div>
+              </div>
+              <div>
                     <h3 className="font-semibold text-white">Premium Collection</h3>
                     <p className="text-xs text-zinc-400">Limited Edition</p>
-                  </div>
-                </div>
+              </div>
+            </div>
               )}
               
               <p className="text-zinc-300 text-sm leading-relaxed mb-4">
                 {product.description}
               </p>
-              
+
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
-                    ${product.price}
-                  </span>
-                  {product.oldPrice && (
+                      ${product.price}
+                    </span>
+                    {product.oldPrice && (
                     <span className="text-zinc-400 line-through text-sm ml-2">${product.oldPrice}</span>
-                  )}
+                    )}
                 </div>
                 <div className="flex items-center gap-2 bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -687,8 +514,8 @@ const GameView = () => {
                       <p className="text-sm text-zinc-300 leading-relaxed">{feature}</p>
                     </motion.div>
                   ))}
-                </div>
-              </div>
+                    </div>
+                  </div>
             )}
 
             {/* Gallery */}
@@ -736,9 +563,9 @@ const GameView = () => {
               </motion.button>
             </div>
           </motion.div>
-        </div>
-      </div>
-      
+              </div>
+            </div>
+
       {/* History Modal */}
       <AnimatePresence>
         {showHistoryModal && product && (
@@ -800,9 +627,9 @@ const GameView = () => {
                   className="bg-gradient-to-r from-zinc-800/50 to-zinc-700/50 p-6 rounded-xl border border-zinc-600/30 backdrop-blur-sm"
                 >
                   <div className="aspect-video rounded-lg overflow-hidden">
-                    <img
+                    <img 
                       src={product.image}
-                      alt={product.name}
+                      alt={product.name} 
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -832,7 +659,7 @@ const GameView = () => {
                     <i className="fas fa-shopping-cart mr-2"></i>
                     Add to Cart
                   </motion.button>
-                </div>
+            </div>
               </div>
             </motion.div>
           </motion.div>

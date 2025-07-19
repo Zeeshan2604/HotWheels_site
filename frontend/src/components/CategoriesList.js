@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useInView } from 'react-intersection-observer';
@@ -42,6 +42,9 @@ const CategoriesList = () => {
     const matchesTag = filterTag === "all" || category.tags?.includes(filterTag);
     return matchesSearch && matchesTag;
   });
+
+  // Memoize filteredCategories
+  const visibleCategories = useMemo(() => filteredCategories, [filteredCategories]);
 
   // Loading skeleton
   if (loading) {
@@ -100,6 +103,73 @@ const CategoriesList = () => {
       </div>
     );
   }
+
+  // Memoize CategoryItem
+  const CategoryItem = React.memo(({ category, index, navigate, viewMode }) => (
+    <motion.div
+      key={category._id}
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      whileHover={{ y: -10, scale: 1.02 }}
+      onClick={() => navigate(`/collection/${category._id}`)}
+      className={`group relative overflow-hidden rounded-2xl cursor-pointer shadow-xl hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)] border border-zinc-700/50 hover:border-red-500/50 transition-all duration-300 ${viewMode === 'grid' ? 'aspect-square bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 backdrop-blur-md flex flex-col justify-end' : 'flex flex-row items-center bg-zinc-900/80 hover:bg-zinc-800/80 backdrop-blur-md min-h-[96px] sm:min-h-[120px] mb-2'}`}
+    >
+      {viewMode === 'grid' ? (
+        <>
+          <img
+            alt={category.name}
+            src={category.image}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 absolute inset-0 z-0"
+            loading="lazy"
+            style={{ objectPosition: 'center' }}
+          />
+          {/* Featured Badge */}
+          {category.isFeatured && (
+            <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-gradient-to-r from-red-500 to-orange-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold shadow-lg">
+              FEATURED
+            </div>
+          )}
+          <div className="relative z-10 flex flex-col justify-end h-full p-3 sm:p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent group/card">
+            <h3 className="text-lg sm:text-2xl font-bold text-white group-hover/card:text-red-400 transition-colors line-clamp-2 mb-0 z-10 relative transition-all duration-300 group-hover/card:-translate-y-1">{category.name}</h3>
+            <div className="transition-all duration-300 overflow-hidden max-h-0 opacity-0 group-hover/card:max-h-[4.5rem] group-hover/card:opacity-100">
+              <p className="text-xs sm:text-base text-gray-300 line-clamp-2 sm:line-clamp-3 mt-1">{category.description || 'Explore our exclusive collection of premium models'}</p>
+            </div>
+            <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-xs sm:text-base mt-2 z-10 relative transition-all duration-300 group-hover/card:-translate-y-1">
+              View Collection <i className="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 mr-3">
+            <img
+              alt={category.name}
+              src={category.image}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center p-2 sm:p-4">
+            <div className="flex items-center justify-between mb-1 sm:mb-2">
+              <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-red-400 transition-colors line-clamp-2">{category.name}</h3>
+              {category.tags && category.tags.length > 0 && (
+                <div className="flex gap-1 sm:gap-2 overflow-x-auto max-w-[100px] sm:max-w-none">
+                  {category.tags.slice(0, 2).map(tag => (
+                    <span key={tag} className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full whitespace-nowrap">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <p className="text-gray-400 mb-1 sm:mb-2 text-xs sm:text-base line-clamp-2 sm:line-clamp-3">{category.description || 'Explore our exclusive collection of premium models'}</p>
+            <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-xs sm:text-base mt-auto">
+              View Collection <i className="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </>
+      )}
+    </motion.div>
+  ));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-black text-white relative overflow-hidden">
@@ -179,70 +249,8 @@ const CategoriesList = () => {
         </motion.div>
         {/* Categories Grid/List */}
         <div className={`gap-4 sm:gap-8 ${viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'flex flex-col'}`}>
-          {filteredCategories.map((category, index) => (
-            <motion.div
-              key={category._id}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              onClick={() => navigate(`/collection/${category._id}`)}
-              className={`group relative overflow-hidden rounded-2xl cursor-pointer shadow-xl hover:shadow-[0_20px_40px_rgba(239,68,68,0.2)] border border-zinc-700/50 hover:border-red-500/50 transition-all duration-300 ${viewMode === 'grid' ? 'aspect-square bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 backdrop-blur-md flex flex-col justify-end' : 'flex flex-row items-center bg-zinc-900/80 hover:bg-zinc-800/80 backdrop-blur-md min-h-[96px] sm:min-h-[120px] mb-2'}`}
-            >
-              {viewMode === 'grid' ? (
-                <>
-                  <img
-                    alt={category.name}
-                    src={category.image}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 absolute inset-0 z-0"
-                    loading="lazy"
-                    style={{ objectPosition: 'center' }}
-                  />
-                  {/* Featured Badge */}
-                  {category.isFeatured && (
-                    <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-gradient-to-r from-red-500 to-orange-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold shadow-lg">
-                      FEATURED
-                    </div>
-                  )}
-                  <div className="relative z-10 flex flex-col justify-end h-full p-3 sm:p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent group/card">
-                    <h3 className="text-lg sm:text-2xl font-bold text-white group-hover/card:text-red-400 transition-colors line-clamp-2 mb-0 z-10 relative transition-all duration-300 group-hover/card:-translate-y-1">{category.name}</h3>
-                    <div className="transition-all duration-300 overflow-hidden max-h-0 opacity-0 group-hover/card:max-h-[4.5rem] group-hover/card:opacity-100">
-                      <p className="text-xs sm:text-base text-gray-300 line-clamp-2 sm:line-clamp-3 mt-1">{category.description || 'Explore our exclusive collection of premium models'}</p>
-                    </div>
-                    <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-xs sm:text-base mt-2 z-10 relative transition-all duration-300 group-hover/card:-translate-y-1">
-                      View Collection <i className="fa-solid fa-arrow-right"></i>
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 mr-3">
-                    <img
-                      alt={category.name}
-                      src={category.image}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex-1 flex flex-col justify-center p-2 sm:p-4">
-                    <div className="flex items-center justify-between mb-1 sm:mb-2">
-                      <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-red-400 transition-colors line-clamp-2">{category.name}</h3>
-                      {category.tags && category.tags.length > 0 && (
-                        <div className="flex gap-1 sm:gap-2 overflow-x-auto max-w-[100px] sm:max-w-none">
-                          {category.tags.slice(0, 2).map(tag => (
-                            <span key={tag} className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full whitespace-nowrap">{tag}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-gray-400 mb-1 sm:mb-2 text-xs sm:text-base line-clamp-2 sm:line-clamp-3">{category.description || 'Explore our exclusive collection of premium models'}</p>
-                    <button className="flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-xs sm:text-base mt-auto">
-                      View Collection <i className="fa-solid fa-arrow-right"></i>
-                    </button>
-                  </div>
-                </>
-              )}
-            </motion.div>
+          {visibleCategories.map((category, index) => (
+            <CategoryItem key={category._id} category={category} index={index} navigate={navigate} viewMode={viewMode} />
           ))}
         </div>
       </div>

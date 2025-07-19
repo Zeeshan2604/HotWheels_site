@@ -33,7 +33,7 @@ const Hyperspeed = ({ effectOptions = {
   colors: {
     roadColor: 0x080808,
     islandColor: 0x0a0a0a,
-    background: 0x000000,
+    background: 0x1e3a8a, // Vibrant blue
     shoulderLines: 0xFFFFFF,
     brokenLines: 0xFFFFFF,
     leftCars: [0xD856BF, 0x6750A2, 0xC247AC],
